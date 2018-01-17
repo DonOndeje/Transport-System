@@ -1,2 +1,2 @@
 # Transport-System
-Transport Management System 
+Academic/Trip Management System
