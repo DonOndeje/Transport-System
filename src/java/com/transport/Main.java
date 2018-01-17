@@ -49,7 +49,11 @@ public class Main extends HttpServlet {
             }
             
         } else {
-            
+              try {
+                result = user.login(email, password);
+            } catch (SQLException | NoSuchAlgorithmException | InvalidKeySpecException ex) {
+                Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
         
