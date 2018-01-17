@@ -26,13 +26,13 @@ public class UserDB extends Database{
     public int register (String username, String password, String contact, String email) throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException{
         String hashedPass = authen.hash(password);
         
-        String sql = "INSERT INTO users VALUES(?, ?, ?, ?)";
+        String sql = "INSERT INTO users (user_name, password, user_type, email, contact) VALUES(?, ?, ?, ?,?)";
         this.createStatement(sql);
-        stmt.setString(2, username); 
-        stmt.setString(3,hashedPass);
-        stmt.setInt(4,0);
-        stmt.setString(5,email);
-        stmt.setString(6,contact);
+        stmt.setString(1, username); 
+        stmt.setString(2,hashedPass);
+        stmt.setInt(3,0);
+        stmt.setString(4,email);
+        stmt.setString(5,contact);
         
          int i = stmt.executeUpdate();
          

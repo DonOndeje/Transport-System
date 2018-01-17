@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class Database {
     String jdbcUrl = "jdbc:postgresql://localhost:5432/Transport";
     String username = "postgres";
-    String password = "1234";
+    String password = "jumbotron@94";
 
     protected Connection conn = null;
     protected PreparedStatement  stmt = null;
@@ -50,7 +50,7 @@ public class Database {
     public void createStatement(String sql) throws SQLException {
         if (conn == null) {
             this.connect();
-            stmt = conn.prepareStatement(sql);
+            stmt = this.conn.prepareStatement(sql);
         } else {
             stmt = conn.prepareStatement(sql);
         }
