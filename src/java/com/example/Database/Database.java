@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  *
  * @author JQHN
  */
-public class Database {
+public class Database { // this class handles all database connections
     String jdbcUrl = "jdbc:postgresql://localhost:5432/Transport";
     String username = "postgres";
     String password = "jumbotron@94";

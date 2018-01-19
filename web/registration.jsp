@@ -10,7 +10,7 @@
             response.setHeader("Cache-Control", "no-store"); //Directs caches not to store the page under any circumstance
             response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
             response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
-       String userName = (String) session.getAttribute("admin");
+       //String userName = (String) session.getAttribute("admin");
      
      %>
 <!DOCTYPE html>

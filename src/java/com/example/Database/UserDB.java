@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package com.example.Database;
 
 import com.transport.Authentication;
@@ -23,19 +19,20 @@ public class UserDB extends Database {
     public int login(String email, String password) throws NoSuchAlgorithmException, InvalidKeySpecException, SQLException {
         int result = 0;
 
-        String sql = "SELECT * FROM users WHERE email= ? ";
+        String sql = "SELECT * FROM users WHERE email = ? ";
         this.createStatement(sql);
         stmt.setString(1, email);
 
         rs = stmt.executeQuery();
         int count = 0;
-        String storedpassword = null;
-        while (rs.next()) {
+        String storedpassword = null; 
+        while (rs.next()) { // we obtain the stored hashed password from the database.
             storedpassword = rs.getString("password");
             ++count;
         }
-        Authentication authen = new Authentication();
+   
         if (count == 1) {
+            // if we find a password with the said email adrress then validate it by comparing using the validate() method.
             if (authen.validatePassword(password, storedpassword)) {
                 result = 1;
             }
