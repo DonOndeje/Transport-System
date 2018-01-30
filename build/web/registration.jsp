@@ -32,70 +32,84 @@
                     <h5 class="green-text">Fill In This Form To Register To The Trip Management System</h5>
                     <div class="container">
                     <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
-                        <script type="text/javascript">
-                            function validator(form){
-                                if(form.username.value==""){
-                                    alert("Please Enter Your Username");
-                                    form.username.focus();
-                                }
-                                else if(form.email.value==""){
-                                    alert("Please Enter Your Email");
-                                    form.email.focus();
-                                }
-                                else if(form.contact.value==""){
-                                    alert("Please Enter Your Contact");
-                                    form.contact.focus();
-                                }
-                                else if(form.password.value==""){
-                                    alert("Please Enter Your Password");
-                                    form.password.focus();
-                                }
-                                else if(form.confirmPassword.value==""){
-                                    alert("Please Confirm Your Password");
-                                    form.confirmPassword.focus();
-                                }
-                                else{
-                                    form.submit();
-                                }
-                            }               
-                        </script>
-                        <form class="col s12" method="post" action="Main">
+                       <script type="text/javascript">
+                           function validateform(){
+                               var username = document.registration.username.value;
+                               var email = document.registration.email.value;
+                               var contact = document.registration.contact.value;
+                               var password = document.registration.password.value;
+                               var confirmpassword = document.registration.confirmPassword.value;
+                               
+                               if(username==null || username==""){
+                                   alert("Please Enter Your Username");
+                                   return false;
+                               }
+                               else if(email==null || email==""){
+                                   alert("Please Enter Your Email");
+                                   return false;
+                               }
+                               else if(contact==null || contact==""){
+                                   alert("Please Enter Your Contact");
+                                   return false;
+                               }
+                               else if(isNaN(contact)){
+                                   alert("Enter Numeric Value Only");
+                                   return false;
+                               }
+                               else if(contact.length<10 || contact.length>10){
+                                   alert("Your Contact Is Either Less Than or More Than 10 Digits");
+                                   return false;
+                               }
+                               else if(password==null || password==""){
+                                   alert("Please Enter Your Password");
+                                   return false;
+                               }
+                               else if(password==confirmpassword){
+                                   return true;
+                               }
+                               else{  
+                                    alert("Your Passwords Do Not Match");  
+                                    return false;  
+                                }  
+                           }
+                       </script>
+                        <form class="col s12 formValidate" name="registration" method="post" action="Main" onsubmit="return validateform()">
                             
                               <div class='col s12'></div>
                             
                               <div class='input-field col s12'>
-                                <input class='validate' type='text' name='username' id='username' />
-                                <label for='email'>Enter your username</label>
+                                  <input class='validate' type='text' name='username' id='username'/>
+                                <label for='username'>Enter your username</label>
                               </div>
                             
                             <input type="hidden" name="source" value="register">
                             
                               <div class='input-field col s12'>
-                                <input class='validate' type='email' name='email' id='email' />
+                                <input class='validate' type='email' name='email' id='email'/>
                                 <label for='email'>Enter your email</label>
                               </div>
                             
                             
                               <div class='input-field col s12'>
-                                <input class='validate' type='text' name='contact' id='contact' />
-                                <label for='email'>Enter your contact</label>
+                                <input class='validate' type='text' name='contact' id='contact'/>
+                                <label for='contact'>Enter your contact</label>
                               </div>
                             
                               <div class='input-field col s12'>
-                                <input class='validate' type='password' name='password' id='password' />
+                                <input class='validate' type='password' name='password' id='password'/>
                                 <label for='password'>Enter your password</label>
                               </div>
                             
                             
                               <div class='input-field col s12'>
-                                <input class='validate' type='password' name='confirmPassword' id='password' />
-                                <label for='password'>Confirm your password</label>
+                                <input class='validate' type='password' name='confirmPassword' id='confirmPassword'/>
+                                <label for='confirmPassword'>Confirm your password</label>
                               </div>
                                 
                             
                             <center>
                               <div class='row'>
-                                  <button style='float: right' type='submit' name='btn_login' class='col s12 btn btn-large waves-effect green' onclick='validator(this.form)'>Register</button>
+                                  <button style='float: right' type='submit' name='btn_login' class='col s12 btn btn-large waves-effect green' >Register</button>
                                   <br><br>
                                   
                                   <div> <a class='pink-text' href='index.jsp'><b>Already Have Account?, Login</b></a> </div>

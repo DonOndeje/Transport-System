@@ -8,19 +8,14 @@
 <%@page import="java.io.PrintWriter"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    response.setHeader("Cache-Control", "no-cache"); //Forces caches to obtain a new copy of the page from the origin server
-    response.setHeader("Cache-Control", "no-store"); //Directs caches not to store the page under any circumstance
-    response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
-    response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
-    
+    // response.setHeader("Cache-Control", "no-cache"); //Forces caches to obtain a new copy of the page from the origin server
+    //  response.setHeader("Cache-Control", "no-store"); //Directs caches not to store the page under any circumstance
+    //  response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
+    // response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
+
     String userName = (String) session.getAttribute("admin");
     if (null == userName) {
-        out.append("session has ended..");
-        String url = "/index.jsp";
-        RequestDispatcher dis = getServletContext().getRequestDispatcher(url);
 
-       
-        dis.include(request, response);
     }
 %>
 <!DOCTYPE html>
@@ -39,16 +34,30 @@
         <%
             // this will allow the user to have acess only if the session exits.
             Enumeration names = session.getAttributeNames();
-            String temp= (String)names.nextElement();
-            String admin = (String) session.getAttribute("admin"); // each jsp page has its own  default session 
-           String username = (String)session.getAttribute("admin");
-            
-          
-          
-           
-            
+            //  String temp = (String) names.nextElement();
+
+            String username = (String) session.getAttribute("admin");
+            HttpSession session1 = request.getSession();// Create a session object if it is already not created.
+            session1.setAttribute("don", "reload"); //Saves email string in the session object
+            session1.setMaxInactiveInterval(1800); // sets the session to last for 1800 seconds afterwrds login is required.
+            if (session.getAttribute("admin") == null) {
+                out.append("session has ended..");
+                String url = "/index.jsp";
+                RequestDispatcher dis = getServletContext().getRequestDispatcher(url);
+
+                dis.include(request, response);
+                session1.invalidate();
+            }
+            Cookie[] cookies = request.getCookies();
+            if (cookies != null) {
+                for (Cookie cookie : cookies) {
+                    if (cookie.getName().equals("user")) {
+                        userName = cookie.getValue();
+                    }
+                }
+            }
         %>
-        
+
         <ul id="slide-out" class="side-nav fixed z-depth-2" style="background-color: whitesmoke">
             <li class="center no-padding">
                 <div class="green darken-2 white-text" style="height: 175px;">
@@ -58,9 +67,9 @@
                     </div>
                 </div>
             </li>
-            
+
             <li id="dash_dashboard"><a class="waves-effect" href="<%response.encodeURL("adminpage.jsp");  %>"><i class="small material-icons">dashboard</i><b>Dashboard</b></a></li>
-            
+
             <ul class="collapsible" data-collapsible="accordion">
                 <li id="dash_users">
                     <div id="dash_users_header" class="collapsible-header waves-effect"><i class="small material-icons">people</i><b>Users</b></div>
@@ -115,41 +124,30 @@
                 </li>
             </ul> 
         </ul>
-        
+
         <header>
             <ul class="dropdown-content" id="user_dropdown">
                 <li><a class="green-text" href="#!">Profile</a></li>
                 <li><a class="green-text" href="" onclick="<%
-                                      if (session.getAttribute("admin") == null || !temp.equals("admin")) {
-                                            response.sendRedirect("index.jsp");
-                                            session.invalidate();
-                                       } 
-                                     Cookie[] cookies = request.getCookies();
-                                            if (cookies != null) {
-                                    for (Cookie cookie : cookies) {
-                                  if (cookie.getName().equals("user")) {
-                                userName = cookie.getValue();
-                        }
-                }
-            }
-                                            session.invalidate();
+
+   session1.invalidate();
                        %>"> Logout</a></li>
             </ul>
-            
+
             <nav class="green darken-2" role="navigation">
                 <div class="nav-wrapper">
                     <ul class="right hide-on-med-and-down">
-                        
+
                         <li><%
-                        out.append(username);
-                        
-                          
-                        %><a class='right dropdown-button' href='' data-activates='user_dropdown'><i class=' material-icons'>account_circle</i></a></li>
-                        </ul>
+                            out.append(username);
+
+
+                            %><a class='right dropdown-button' href='' data-activates='user_dropdown'><i class=' material-icons'>account_circle</i></a></li>
+                    </ul>
                 </div>
             </nav>
         </header>
-        
+
         <main>
             <div class="row">
                 <div class="col s12">
@@ -159,7 +157,7 @@
                                 <b>System Information</b>
                             </div>
                         </div>
-                        
+
                         <div class="row">
                             <a href="#modal4" class="modal-trigger">
                                 <div style="padding: 30px;" class="grey lighten-3 col s3 waves-effect">
@@ -167,18 +165,18 @@
                                     <span class="green-text text-lighten-1"><h5>Total Available Drivers</h5></span>
                                 </div>
                             </a>
-                            
+
                             <div class="col s1">&nbsp;</div>
-                            
+
                             <a href="#modal6" class="modal-trigger">
                                 <div style="padding: 30px;" class="grey lighten-3 col s3 waves-effect">
                                     <i class="green-text text-lighten-1 large material-icons">airport_shuttle</i>
                                     <span class="green-text text-lighten-1"><h5>Total Available Vehicles</h5></span>
                                 </div>
                             </a>
-                            
+
                             <div class="col s1">&nbsp;</div>
-                            
+
                             <a href="#modal2" class="modal-trigger">
                                 <div style="padding: 30px;" class="grey lighten-3 col s3 waves-effect">
                                     <i class="green-text text-lighten-1 large material-icons">people</i>
@@ -189,7 +187,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <div id="modal1" class="modal">
                 <div class="modal-content">
                     <h4>Modal Header</h4>
@@ -286,9 +284,9 @@
                     <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">Agree</a>
                 </div>
             </div>
-            
+
             <script type="text/javascript">
-                $(document).ready(function(){
+                $(document).ready(function () {
                     $('.modal-trigger').leanModal();
                 });
             </script>
