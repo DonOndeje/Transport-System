@@ -137,6 +137,7 @@
             <nav class="green darken-2" role="navigation">
                 <div class="nav-wrapper">
                     <ul class="right hide-on-med-and-down">
+<<<<<<< HEAD
 
                         <li><%
                             out.append(username);
@@ -144,6 +145,11 @@
 
                             %><a class='right dropdown-button' href='' data-activates='user_dropdown'><i class=' material-icons'>account_circle</i></a></li>
                     </ul>
+=======
+                        
+                        <li><a class='right dropdown-button' href='' data-activates='user_dropdown'><%out.append(username);%><i class=' material-icons right'>account_circle</i></a></li>
+                        </ul>
+>>>>>>> 665f9079f508101765ec75e1f2c637caabe7ef59
                 </div>
             </nav>
         </header>
