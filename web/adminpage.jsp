@@ -140,11 +140,7 @@
                 <div class="nav-wrapper">
                     <ul class="right hide-on-med-and-down">
                         
-                        <li><%
-                        out.append(username);
-                        
-                          
-                        %><a class='right dropdown-button' href='' data-activates='user_dropdown'><i class=' material-icons'>account_circle</i></a></li>
+                        <li><a class='right dropdown-button' href='' data-activates='user_dropdown'><%out.append(username);%><i class=' material-icons right'>account_circle</i></a></li>
                         </ul>
                 </div>
             </nav>
