@@ -4,6 +4,7 @@
     Author     : Josh Murunga
 --%>
 
+<%@page import="java.util.Enumeration"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
@@ -11,14 +12,14 @@
     response.setHeader("Cache-Control", "no-store"); //Directs caches not to store the page under any circumstance
     response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
     response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
-
+    
     String userName = (String) session.getAttribute("admin");
     if (null == userName) {
-        request.setAttribute("Error", "Session has ended.  Please login.");
+        out.append("session has ended..");
         String url = "/index.jsp";
         RequestDispatcher dis = getServletContext().getRequestDispatcher(url);
 
-        out.println("<font color=red>Either user name or password is wrong.</font>");
+       
         dis.include(request, response);
     }
 %>
@@ -37,21 +38,15 @@
 
         <%
             // this will allow the user to have acess only if the session exits.
+            Enumeration names = session.getAttributeNames();
+            String temp= (String)names.nextElement();
             String admin = (String) session.getAttribute("admin"); // each jsp page has its own  default session 
-            if (session.getAttribute("admin") == null || admin.equals("admin")) {
-                response.sendRedirect("index.jsp");
-            }
-
-            Cookie[] cookies = request.getCookies();
-            if (cookies != null) {
-                for (Cookie cookie : cookies) {
-                    if (cookie.getName().equals("user")) {
-                        userName = cookie.getValue();
-                    }
-                }
-            }
-            session.removeAttribute("admin");
-            session.invalidate();
+           String username = (String)session.getAttribute("admin");
+            
+          
+          
+           
+            
         %>
         
         <ul id="slide-out" class="side-nav fixed z-depth-2" style="background-color: whitesmoke">
@@ -64,7 +59,7 @@
                 </div>
             </li>
             
-            <li id="dash_dashboard"><a class="waves-effect" href="adminpage.jsp"><i class="small material-icons">dashboard</i><b>Dashboard</b></a></li>
+            <li id="dash_dashboard"><a class="waves-effect" href="<%response.encodeURL("adminpage.jsp");  %>"><i class="small material-icons">dashboard</i><b>Dashboard</b></a></li>
             
             <ul class="collapsible" data-collapsible="accordion">
                 <li id="dash_users">
@@ -124,14 +119,33 @@
         <header>
             <ul class="dropdown-content" id="user_dropdown">
                 <li><a class="green-text" href="#!">Profile</a></li>
-                <li><a class="green-text" href="index.jsp">Logout</a></li>
+                <li><a class="green-text" href="" onclick="<%
+                                      if (session.getAttribute("admin") == null || !temp.equals("admin")) {
+                                            response.sendRedirect("index.jsp");
+                                            session.invalidate();
+                                       } 
+                                     Cookie[] cookies = request.getCookies();
+                                            if (cookies != null) {
+                                    for (Cookie cookie : cookies) {
+                                  if (cookie.getName().equals("user")) {
+                                userName = cookie.getValue();
+                        }
+                }
+            }
+                                            session.invalidate();
+                       %>"> Logout</a></li>
             </ul>
             
             <nav class="green darken-2" role="navigation">
                 <div class="nav-wrapper">
                     <ul class="right hide-on-med-and-down">
-                        <li><a class='right dropdown-button' href='' data-activates='user_dropdown'><i class=' material-icons'>account_circle</i></a></li>
-                    </ul>
+                        
+                        <li><%
+                        out.append(username);
+                        
+                          
+                        %><a class='right dropdown-button' href='' data-activates='user_dropdown'><i class=' material-icons'>account_circle</i></a></li>
+                        </ul>
                 </div>
             </nav>
         </header>

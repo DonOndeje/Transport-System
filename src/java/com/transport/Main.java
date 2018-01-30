@@ -57,18 +57,18 @@ public class Main extends HttpServlet {
             }
         }
         if (result == 1) { // on sucessful login 
-            response.setHeader("Cache-Control", "no-cache"); //Forces caches to obtain a new copy of the page from the origin server
-            response.setHeader("Cache-Control", "no-store"); //Directs caches not to store the page under any circumstance
-            response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
-            response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
+           // response.setHeader("Cache-Control", "no-cache"); //Forces caches to obtain a new copy of the page from the origin server
+           // response.setHeader("Cache-Control", "no-store"); //Directs caches not to store the page under any circumstance
+          //  response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
+            //response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
             HttpSession session = request.getSession();// Create a session object if it is already not created.
             session.setAttribute("admin", email); //Saves email string in the session object
             session.setMaxInactiveInterval(1800); // sets the session to last for 1800 seconds afterwrds login is required.
             Cookie cookie = new Cookie("admin", email);
-            cookie.setMaxAge(20);
+            cookie.setMaxAge(1800);
 
             response.addCookie(cookie); // add the cookie to the response 
-            response.sendRedirect("adminpage.jsp"); // 
+            response.sendRedirect("adminpage.jsp"); //sends a redirect to the admin page 
            
         } else {
             String url = "/index.jsp";
