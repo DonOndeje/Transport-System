@@ -1,22 +1,13 @@
-<%-- 
-    Document   : adminpage
-    Created on : Jan 17, 2018, 6:17:59 PM
-    Author     : Josh Murunga
---%>
+
 
 <%@page import="java.util.Enumeration"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    // response.setHeader("Cache-Control", "no-cache"); //Forces caches to obtain a new copy of the page from the origin server
-    //  response.setHeader("Cache-Control", "no-store"); //Directs caches not to store the page under any circumstance
-    //  response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
-    // response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
-
-    String userName = (String) session.getAttribute("admin");
-    if (null == userName) {
-
-    }
+    response.setHeader("Cache-Control", "no-cache"); //Forces caches to obtain a new copy of the page from the origin server
+    response.setHeader("Cache-Control", "no-store"); //Directs caches not to store the page under any circumstance
+    response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
+    response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
 %>
 <!DOCTYPE html>
 <html>
@@ -30,32 +21,23 @@
         <link rel="stylesheet" href="materialize/css/materialicons.css">
     </head>
     <body style="background-color: whitesmoke;">
-
+        <jsp:useBean id="users" class="com.transport.User" scope="session" />
+        <jsp:setProperty name="users" property="*"/>
         <%
-            // this will allow the user to have acess only if the session exits.
-            Enumeration names = session.getAttributeNames();
-            //  String temp = (String) names.nextElement();
-
-            String username = (String) session.getAttribute("admin");
-            HttpSession session1 = request.getSession();// Create a session object if it is already not created.
-            session1.setAttribute("don", "reload"); //Saves email string in the session object
-            session1.setMaxInactiveInterval(1800); // sets the session to last for 1800 seconds afterwrds login is required.
-            if (session.getAttribute("admin") == null) {
-                out.append("session has ended..");
-                String url = "/index.jsp";
-                RequestDispatcher dis = getServletContext().getRequestDispatcher(url);
-
-                dis.include(request, response);
-                session1.invalidate();
-            }
+           
             Cookie[] cookies = request.getCookies();
             if (cookies != null) {
                 for (Cookie cookie : cookies) {
-                    if (cookie.getName().equals("user")) {
-                        userName = cookie.getValue();
+                    if (cookie.getName().equals("admin")) {
+                       
+
+                        if (session.getAttribute("admin") == null) {
+                            response.sendRedirect("index.jsp");
+                        }
                     }
                 }
             }
+            session.invalidate();
         %>
 
         <ul id="slide-out" class="side-nav fixed z-depth-2" style="background-color: whitesmoke">
@@ -68,7 +50,7 @@
                 </div>
             </li>
 
-            <li id="dash_dashboard"><a class="waves-effect" href="<%response.encodeURL("adminpage.jsp");  %>"><i class="small material-icons">dashboard</i><b>Dashboard</b></a></li>
+            <li id="dash_dashboard"><a class="waves-effect" href="adminpage.jsp"><i class="small material-icons">dashboard</i><b>Dashboard</b></a></li>
 
             <ul class="collapsible" data-collapsible="accordion">
                 <li id="dash_users">
@@ -128,28 +110,16 @@
         <header>
             <ul class="dropdown-content" id="user_dropdown">
                 <li><a class="green-text" href="#!">Profile</a></li>
-                <li><a class="green-text" href="" onclick="<%
-
-   session1.invalidate();
-                       %>"> Logout</a></li>
+                <li><a class="green-text" href="index.jsp"> Logout</a></li>
             </ul>
 
             <nav class="green darken-2" role="navigation">
                 <div class="nav-wrapper">
                     <ul class="right hide-on-med-and-down">
-<<<<<<< HEAD
-
-                        <li><%
-                            out.append(username);
 
 
-                            %><a class='right dropdown-button' href='' data-activates='user_dropdown'><i class=' material-icons'>account_circle</i></a></li>
+                        <li><a class='right dropdown-button' href='' data-activates='user_dropdown'><%out.append(users.getEmail());%><i class=' material-icons right'>account_circle</i></a></li>
                     </ul>
-=======
-                        
-                        <li><a class='right dropdown-button' href='' data-activates='user_dropdown'><%out.append(username);%><i class=' material-icons right'>account_circle</i></a></li>
-                        </ul>
->>>>>>> 665f9079f508101765ec75e1f2c637caabe7ef59
                 </div>
             </nav>
         </header>

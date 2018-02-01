@@ -31,19 +31,31 @@ public class Main extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+          User users = new User(); 
         String email = request.getParameter("email");  // Obtain email parameter from the index.jsp file
         String password = request.getParameter("password"); // Obtain password parameter from the index.jsp file
         String source = request.getParameter("source");  // this is a hidden field used to determine the source of the request either registration or login
         int result = 0;
-
+        users.setEmail(email);
+        users.setPassword(password);
         if (source.equals("register")) {
+           
             // the registration page for other users is handle here.
             String contact = request.getParameter("contact");  // Obtain contact parameter from the registration.jsp file
             String username = request.getParameter("username"); // Obtain contact username from the registration.jsp file
-
+             users.setUsername(username);
+             
+             users.setContact(contact);
+             users.setPassword(password);
+              HttpSession session = request.getSession();// Create a session object if it is already not created.
+            session.setAttribute("user", users); //Saves email string in the session object
+            session.setMaxInactiveInterval(1800);
+             String url = "/index.jsp";
+            RequestDispatcher dispatch = getServletContext().getRequestDispatcher(url);
+            dispatch.forward(request, response);
+            
             try {
-                result = register(username, password, contact, email);  // we pass the parameters to the UserDb.java file for user regestration
+                result = register(users);  // we pass the parameters to the UserDb.java file for user regestration
             } catch (SQLException | NoSuchAlgorithmException | InvalidKeySpecException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -51,7 +63,7 @@ public class Main extends HttpServlet {
         } else {
             try {
                 // this handles requests form the login.jsp file
-                result = user.login(email, password); //returns 1 if there is a sucessful password match.
+                result = user.login(users); //returns 1 if there is a sucessful password match.
             } catch (SQLException | NoSuchAlgorithmException | InvalidKeySpecException ex) {
                 Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
             }
@@ -61,14 +73,18 @@ public class Main extends HttpServlet {
            // response.setHeader("Cache-Control", "no-store"); //Directs caches not to store the page under any circumstance
           //  response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
             //response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
+            users.setEmail(email);
             HttpSession session = request.getSession();// Create a session object if it is already not created.
-            session.setAttribute("admin", email); //Saves email string in the session object
-            session.setMaxInactiveInterval(1800); // sets the session to last for 1800 seconds afterwrds login is required.
-            Cookie cookie = new Cookie("admin", email);
+            session.setAttribute("admin", users); //Saves email string in the session object
+            session.setMaxInactiveInterval(10); // sets the session to last for 1800 seconds afterwrds login is required.
+            Cookie cookie = new Cookie("admin", users.getEmail());
             cookie.setMaxAge(1800);
 
+            // we forward the request and response to the jsp page.
             response.addCookie(cookie); // add the cookie to the response 
-            response.sendRedirect("adminpage.jsp"); //sends a redirect to the admin page 
+            String url = "/adminpage.jsp";
+            RequestDispatcher dispatch = getServletContext().getRequestDispatcher(url);
+            dispatch.forward(request, response);
            
         } else {
             String url = "/index.jsp";
@@ -80,9 +96,9 @@ public class Main extends HttpServlet {
 
     }
 
-    public int register(String username, String password, String contact, String email) throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException {
+    public int register(User users) throws SQLException, NoSuchAlgorithmException, InvalidKeySpecException {
         int result;
-        result = user.register(username, password, contact, email);
+        result = user.register(users);
         return result;
     }
 
