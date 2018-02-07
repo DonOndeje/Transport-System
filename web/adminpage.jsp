@@ -21,22 +21,25 @@
         <link rel="stylesheet" href="materialize/css/materialicons.css">
     </head>
     <body style="background-color: whitesmoke;">
-        <jsp:useBean id="users" class="com.transport.User" scope="session" />
-        <jsp:setProperty name="users" property="*"/>
+        <jsp:useBean id="users" class="com.example.Database.User" scope="request" />
+        <jsp:setProperty property="*" name="users"/>
+        
         <%
-           
+           // The session object is a built-in JSP object hence on need to create it when working with JSPs.
             Cookie[] cookies = request.getCookies();
             if (cookies != null) {
                 for (Cookie cookie : cookies) {
                     if (cookie.getName().equals("admin")) {
                        
-
+                                  System.out.println(cookie.getValue());
                         if (session.getAttribute("admin") == null) {
                             response.sendRedirect("index.jsp");
                         }
                     }
                 }
             }
+            System.out.println(session.getId());
+            System.out.println(session.getAttribute("admin"));
             session.invalidate();
         %>
 
@@ -118,7 +121,7 @@
                     <ul class="right hide-on-med-and-down">
 
 
-                        <li><a class='right dropdown-button' href='' data-activates='user_dropdown'><%out.append(users.getEmail());%><i class=' material-icons right'>account_circle</i></a></li>
+                        <li><a class='right dropdown-button' href='' data-activates='user_dropdown'><jsp:getProperty name ="users" property="email" /><i class=' material-icons right'>account_circle</i></a></li>
                     </ul>
                 </div>
             </nav>

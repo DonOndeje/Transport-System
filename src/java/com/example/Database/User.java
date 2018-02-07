@@ -1,4 +1,4 @@
-package com.transport;
+package com.example.Database;
 // this will be our bean class
 
 import java.io.Serializable;

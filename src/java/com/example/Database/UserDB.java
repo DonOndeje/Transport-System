@@ -7,7 +7,6 @@ import java.security.spec.InvalidKeySpecException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.transport.Authentication;
-import com.transport.User;
 /**
  *
  * @author JQHN

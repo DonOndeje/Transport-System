@@ -1,6 +1,7 @@
 
 package com.transport;
 
+import com.example.Database.User;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -51,8 +52,8 @@ public class Main extends HttpServlet {
             session.setAttribute("user", users); //Saves email string in the session object
             session.setMaxInactiveInterval(1800);
              String url = "/index.jsp";
-            RequestDispatcher dispatch = getServletContext().getRequestDispatcher(url);
-            dispatch.forward(request, response);
+            RequestDispatcher dispatch = getServletContext().getRequestDispatcher(url); //returns a RequestDispatcher object for the specified url. 
+            dispatch.forward(request, response); // forwards the response and request object to another resource on the server.
             
             try {
                 result = register(users);  // we pass the parameters to the UserDb.java file for user regestration
@@ -78,6 +79,7 @@ public class Main extends HttpServlet {
             session.setAttribute("admin", users); //Saves email string in the session object
             session.setMaxInactiveInterval(10); // sets the session to last for 1800 seconds afterwrds login is required.
             Cookie cookie = new Cookie("admin", users.getEmail());
+            cookie.setPath("/"); //allows access to the entire application.
             cookie.setMaxAge(1800);
 
             // we forward the request and response to the jsp page.
