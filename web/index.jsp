@@ -11,17 +11,7 @@
        response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
        response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
    %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Trip Management</title>
-        <link rel="stylesheet" href="materialize/css/materialize.css">
-        <script language="javascript" type="text/javascript" src="materialize/js/materialize.js"></script>
-        <script language="javascript" type="text/javascript" src="materialize/js/material.js"></script>
-        <script language="javascript" type="text/javascript" src="materialize/js/materiali.js"></script>
-    </head>
-    <body style="background-color: whitesmoke">
+<jsp:include page="./includes/header.jsp" />
    
         <div style="background:url(images/logo.gif);padding:60px; background-size: cover;"></div>
         <div style="font-family: fantasy; font-size: 35px; text-align: center; background-color: rgb(76, 175, 80);">TRIP MANAGEMENT SYSTEM</div>
@@ -64,5 +54,4 @@
                 </center>
             </main>
         </div>
-    </body>
-</html>
+   <jsp:include page="./includes/footer.jsp" />
