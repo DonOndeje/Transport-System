@@ -38,8 +38,7 @@
                     }
                 }
             }
-            System.out.println(session.getId());
-            System.out.println(session.getAttribute("admin"));
+            
             session.invalidate();
         %>
 
