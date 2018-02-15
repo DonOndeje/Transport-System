@@ -9,18 +9,8 @@
     response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
     response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
 %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Administration</title>
-        <link rel="stylesheet" href="materialize/css/materialize1.css">
-        <script language="javascript" type="text/javascript" src="materialize/js/materialize.js"></script>
-        <script language="javascript" type="text/javascript" src="materialize/js/material.js"></script>
-        <script language="javascript" type="text/javascript" src="materialize/js/materiali.js"></script>
-        <link rel="stylesheet" href="materialize/css/materialicons.css">
-    </head>
-    <body style="background-color: whitesmoke;">
+    
+<jsp:include page="./includes/header.jsp" />    
         <jsp:useBean id="users" class="com.example.Database.User" scope="request" />
         <jsp:setProperty property="*" name="users"/>
         
@@ -270,5 +260,4 @@
                 });
             </script>
         </main>
-    </body>
-</html>
+ <jsp:include page="./includes/footer.jsp" />
