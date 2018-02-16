@@ -3,14 +3,18 @@
 <%@page import="java.util.Enumeration"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import = "java.io.*,java.util.*,java.sql.*"%>
+<%@ page import = "javax.servlet.http.*,javax.servlet.*" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
 <%
     response.setHeader("Cache-Control", "no-cache"); //Forces caches to obtain a new copy of the page from the origin server
     response.setHeader("Cache-Control", "no-store"); //Directs caches not to store the page under any circumstance
     response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
     response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
 %>
-    
-<jsp:include page="./includes/header.jsp" />    
+<!DOCTYPE html>
+<jsp:include page="./includes/header.jsp" />
         <jsp:useBean id="users" class="com.example.Database.User" scope="request" />
         <jsp:setProperty property="*" name="users"/>
         
@@ -131,7 +135,13 @@
                             <a href="#modal4" class="modal-trigger">
                                 <div style="padding: 30px;" class="grey lighten-3 col s3 waves-effect">
                                     <i class="green-text text-lighten-1 large material-icons">people</i>
-                                    <span class="green-text text-lighten-1"><h5>Total Available Drivers</h5></span>
+                                    <sql:setDataSource var = "drivers" driver = "org.postgresql.Driver"
+                                    url = "jdbc:postgresql://localhost:5432/Transport"
+                                    user = "postgres"  password = "1234"/>
+                                    <sql:query  dataSource = "${drivers}" var = "dresult">
+                                       SELECT * from driver;
+                                    </sql:query>
+                                    <span class="green-text text-lighten-1"><h5>Total Available Drivers: &nbsp;${dresult.rowCount}</h5></span>
                                 </div>
                             </a>
 
@@ -140,7 +150,13 @@
                             <a href="#modal6" class="modal-trigger">
                                 <div style="padding: 30px;" class="grey lighten-3 col s3 waves-effect">
                                     <i class="green-text text-lighten-1 large material-icons">airport_shuttle</i>
-                                    <span class="green-text text-lighten-1"><h5>Total Available Vehicles</h5></span>
+                                    <sql:setDataSource var = "vehicle" driver = "org.postgresql.Driver"
+                                    url = "jdbc:postgresql://localhost:5432/Transport"
+                                    user = "postgres"  password = "1234"/>
+                                    <sql:query  dataSource = "${vehicle}" var = "vresult">
+                                       SELECT * from vehicle;
+                                    </sql:query>
+                                    <span class="green-text text-lighten-1"><h5>Total Available Vehicles: &nbsp;${vresult.rowCount}</h5></span>
                                 </div>
                             </a>
 
@@ -149,7 +165,14 @@
                             <a href="#modal2" class="modal-trigger">
                                 <div style="padding: 30px;" class="grey lighten-3 col s3 waves-effect">
                                     <i class="green-text text-lighten-1 large material-icons">people</i>
-                                    <span class="green-text text-lighten-1"><h5>Total Registered Users</h5></span>
+                                    <sql:setDataSource var = "snapshot" driver = "org.postgresql.Driver"
+                                    url = "jdbc:postgresql://localhost:5432/Transport"
+                                    user = "postgres"  password = "1234"/>
+                                    <sql:query  dataSource = "${snapshot}" var = "result">
+                                       SELECT * from users;
+                                    </sql:query>
+                                    
+                                       <span class="green-text text-lighten-1"><h5>Total Registered Users: &nbsp;${result.rowCount}</h5></span>
                                 </div>
                             </a>
                         </div>
@@ -157,25 +180,45 @@
                 </div>
             </div>
 
-            <div id="modal1" class="modal">
+            <div id="modal1" class="modal modal-fixed-footer">
                 <div class="modal-content">
                     <h4>Modal Header</h4>
                     <p>This is modal1</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">Agree</a>
+                    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">close</a>
                 </div>
             </div>
-            <div id="modal2" class="modal" >
+            <div id="modal2" class="modal modal-fixed-footer" >
                 <div class="modal-content">
-                    <h4>Test Table</h4>
-                    <p>This is modal2</p>
+                    <h4>Users Available In The System</h4>
+                    <table class="striped">
+                        <thead>
+                          <tr>
+                              <th>Username</th>
+                              <th>Email</th>
+                              <th>Contact</th>
+                              <th>Action</th>
+                          </tr>
+                        </thead>
+
+                        <tbody>
+                          <c:forEach var = "row" items = "${result.rows}">
+                            <tr>
+                               <td><c:out value = "${row.user_name}"/></td>
+                               <td><c:out value = "${row.email}"/></td>
+                               <td><c:out value = "${row.contact}"/></td>
+                               <td><button>delete</button></td>
+                            </tr>
+                         </c:forEach>
+                        </tbody>
+                    </table>
                 </div>
                 <div class="modal-footer">
-                    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">Agree</a>
+                    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">close</a>
                 </div>
             </div>
-            <div id="modal3" class="modal">
+            <div id="modal3" class="modal modal-fixed-footer">
                 <div class="modal-content">
                     <h4>Fill In This Form To Add A New Driver</h4>
                     <div class="row">
@@ -203,37 +246,75 @@
                 </div>
                 <div class="modal-footer">
                     <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">submit</a>
+                    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">close</a>
                 </div>
             </div>
-            <div id="modal4" class="modal">
+            <div id="modal4" class="modal modal-fixed-footer">
                 <div class="modal-content">
                     <h4>Modal Header</h4>
                     <p>This is modal4</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">Agree</a>
+                    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">close</a>
                 </div>
             </div>
-            <div id="modal5" class="modal">
+            <div id="modal5" class="modal modal-fixed-footer">
                 <div class="modal-content">
                     <h4>Fill In This Form To Add A New Vehicle</h4>
                     <div class="row">
-                        <form class="col s12">
+                        <script type="text/javascript">
+                            function validator(){
+                                var type = document.addVehicle.vehicle_type.value;
+                                var numplate = document.addVehicle.number_plate.value;
+                                var capacity = document.addVehicle.capacity.value;
+                                
+                                if(type==null || type==""){
+                                   alert("Please Choose Vehicle Type");
+                                   return false;
+                               }
+                               else if(numplate==null || numplate==""){
+                                   alert("Please Enter Vehicle Number Plate");
+                                   return false;
+                               }
+                               else if(capacity==null || capacity==""){
+                                   alert("Please Enter Vehicle Capacity");
+                                   return false;
+                               }
+                               else if(isNaN(capacity)){
+                                   alert("Enter Numeric Value Only");
+                                   return false;
+                               }
+                               else if(numplate.length<7 || numplate.length>7){
+                                   alert("Your Contact Is Either Less Than or More Than 10 Digits");
+                                   return false;
+                               }
+                               else{
+                                   return true;
+                               }
+                            }
+                        </script>
+                        <form class="col s12" name="addVehicle" id="addVehicle" method="post" action="tester.jsp">
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input id="vehicle_type" type="text" class="validate">
+                                    <select name="vehicle_type">
+                                        <option value="" disabled selected>Choose Vehicle Type</option>
+                                        <option value="Bus">Bus</option>
+                                        <option value="Mini-Bus">Mini-Bus</option>
+                                        <option value="Van">Van</option>
+                                        <option value="Double-Cabin">Double-Cabin</option>
+                                    </select>
                                     <label for='vehicle_type'>Vehicle Type</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input id="number_plate" type="text" class="validate">
+                                    <input name="number_plate" id="number_plate" type="text" class="validate">
                                     <label for='number_plate'>Number Plate</label>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input id="capacity" type="text" class="validate">
+                                    <input name="capacity" id="capacity" type="text" class="validate">
                                     <label for='capacity'>Capacity</label>
                                 </div>
                             </div>
@@ -241,23 +322,25 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">Submit</a>
+                    <button type='submit' form='addVehicle' onclick="validator()" class="modal-action modal-close waves-effect waves-green btn-flat green">Add Vehicle</button>
+                    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">close</a>
                 </div>
             </div>
-            <div id="modal6" class="modal">
+            <div id="modal6" class="modal modal-fixed-footer">
                 <div class="modal-content">
                     <h4>Modal Header</h4>
                     <p>This is modal6</p>
                 </div>
                 <div class="modal-footer">
-                    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">Agree</a>
+                    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">close</a>
                 </div>
             </div>
 
             <script type="text/javascript">
                 $(document).ready(function () {
                     $('.modal-trigger').leanModal();
+                    $('select').material_select();
                 });
             </script>
         </main>
- <jsp:include page="./includes/footer.jsp" />
+    <jsp:include page="./includes/footer.jsp" />
