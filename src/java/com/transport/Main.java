@@ -90,9 +90,9 @@ public class Main extends HttpServlet {
            
         } else {
             String url = "/index.jsp";
+            String message = "Either user name or password is wrong.";
             RequestDispatcher dis = getServletContext().getRequestDispatcher(url);
-            PrintWriter out = response.getWriter();
-            out.println("<font color=red>Either user name or password is wrong.</font>");
+            request.setAttribute("message", message);
             dis.include(request, response);
         }
 
