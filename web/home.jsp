@@ -41,17 +41,17 @@
                         <ul>
                             <li id="book">
                                 <a class="waves-effect modal-trigger" href="#modal1" style="text-decoration: none;">
-                                    <i class="small material-icons">person_add</i>Book
+                                    <i class="small material-icons">border_color</i>Book
                                 </a>
                             </li>
                             <li id="cancel_booking">
                                 <a class="waves-effect modal-trigger" href="#modal2" style="text-decoration: none;">
-                                    <i class="small material-icons">remove</i>Cancel A Booking
+                                    <i class="small material-icons">cancel</i>Cancel A Booking
                                 </a>
                             </li>
                             <li id="postpone_booking">
                                 <a class="waves-effect modal-trigger" href="#modal2" style="text-decoration: none;">
-                                    <i class="small material-icons">remove</i>Postpone A Booking
+                                    <i class="small material-icons">date_range</i>Postpone A Booking
                                 </a>
                             </li>
                         </ul>
@@ -63,12 +63,12 @@
                         <ul>
                             <li id="pending">
                                 <a class="waves-effect modal-trigger" href="#modal3" style="text-decoration: none;">
-                                    <i class="small material-icons">person_add</i>Pending Requests
+                                    <i class="small material-icons">schedule</i>Pending Requests
                                 </a>
                             </li>
                             <li id="confirmed">
                                 <a class="waves-effect modal-trigger" href="#modal4" style="text-decoration: none;">
-                                    <i class="small material-icons">remove</i>Confirmed Bookings
+                                    <i class="small material-icons">done_all</i>Confirmed Bookings
                                 </a>
                             </li>
                         </ul>
@@ -105,7 +105,7 @@
                         <div class="row">
                             <a href="#!">
                                 <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
-                                    <i class="green-text text-lighten-1 large material-icons">person</i>
+                                    <i class="green-text text-lighten-1 large material-icons">schedule</i>
                                     <span class="green-text text-lighten-1"><h5>Your Pending Requests</h5></span>
                                 </div>
                             </a>
@@ -115,7 +115,7 @@
                             
                             <a href="#!">
                                 <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
-                                    <i class="green-text text-lighten-1 large material-icons">person</i>
+                                    <i class="green-text text-lighten-1 large material-icons">done_all</i>
                                     <span class="green-text text-lighten-1"><h5>Your Confirmed Bookings</h5></span>
                                 </div>
                             </a>

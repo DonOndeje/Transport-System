@@ -129,7 +129,7 @@
                             <i class="green-text text-lighten-1 large material-icons">people</i>
                             <sql:setDataSource var = "drivers" driver = "org.postgresql.Driver"
                                                url = "jdbc:postgresql://localhost:5432/Transport"
-                                               user = "postgres"  password = "gemini"/>
+                                               user = "postgres"  password = "1234"/>
                             <sql:query  dataSource = "${drivers}" var = "dresult">
                                 SELECT * from driver;
                             </sql:query>
@@ -137,30 +137,14 @@
                         </div>
                     </a>
 
-<<<<<<< HEAD
-                        <div class="row">
-                            <a href="#modal4" class="modal-trigger">
-                                <div style="padding: 30px;" class="grey lighten-3 col s3 waves-effect">
-                                    <i class="green-text text-lighten-1 large material-icons">people</i>
-                                    <sql:setDataSource var = "drivers" driver = "org.postgresql.Driver"
-                                    url = "jdbc:postgresql://localhost:5432/Transport"
-                                    user = "postgres"  password = "gemini"/>
-                                    <sql:query  dataSource = "${drivers}" var = "dresult">
-                                       SELECT * from driver;
-                                    </sql:query>
-                                    <span class="green-text text-lighten-1"><h5>Total Available Drivers: &nbsp;${dresult.rowCount}</h5></span>
-                                </div>
-                            </a>
-=======
                     <div class="col s1">&nbsp;</div>
->>>>>>> 0599d7240122d0c06fda2cfd9b27a8e14a73f373
 
                     <a href="#modal6" class="modal-trigger">
                         <div style="padding: 30px;" class="grey lighten-3 col s3 waves-effect">
                             <i class="green-text text-lighten-1 large material-icons">airport_shuttle</i>
                             <sql:setDataSource var = "vehicle" driver = "org.postgresql.Driver"
                                                url = "jdbc:postgresql://localhost:5432/Transport"
-                                               user = "postgres"  password = "gemini"/>
+                                               user = "postgres"  password = "1234"/>
                             <sql:query  dataSource = "${vehicle}" var = "vresult">
                                 SELECT * from vehicle;
                             </sql:query>
@@ -168,50 +152,19 @@
                         </div>
                     </a>
 
-<<<<<<< HEAD
-                            <a href="#modal6" class="modal-trigger">
-                                <div style="padding: 30px;" class="grey lighten-3 col s3 waves-effect">
-                                    <i class="green-text text-lighten-1 large material-icons">airport_shuttle</i>
-                                    <sql:setDataSource var = "vehicle" driver = "org.postgresql.Driver"
-                                    url = "jdbc:postgresql://localhost:5432/Transport"
-                                    user = "postgres"  password = "gemini"/>
-                                    <sql:query  dataSource = "${vehicle}" var = "vresult">
-                                       SELECT * from vehicle;
-                                    </sql:query>
-                                    <span class="green-text text-lighten-1"><h5>Total Available Vehicles: &nbsp;${vresult.rowCount}</h5></span>
-                                </div>
-                            </a>
-=======
                     <div class="col s1">&nbsp;</div>
->>>>>>> 0599d7240122d0c06fda2cfd9b27a8e14a73f373
 
                     <a href="#modal2" class="modal-trigger">
                         <div style="padding: 30px;" class="grey lighten-3 col s3 waves-effect">
                             <i class="green-text text-lighten-1 large material-icons">people</i>
                             <sql:setDataSource var = "snapshot" driver = "org.postgresql.Driver"
                                                url = "jdbc:postgresql://localhost:5432/Transport"
-                                               user = "postgres"  password = "gemini"/>
+                                               user = "postgres"  password = "1234"/>
                             <sql:query  dataSource = "${snapshot}" var = "result">
                                 SELECT * from users;
                             </sql:query>
 
-<<<<<<< HEAD
-                            <a href="#modal2" class="modal-trigger">
-                                <div style="padding: 30px;" class="grey lighten-3 col s3 waves-effect">
-                                    <i class="green-text text-lighten-1 large material-icons">people</i>
-                                    <sql:setDataSource var = "snapshot" driver = "org.postgresql.Driver"
-                                    url = "jdbc:postgresql://localhost:5432/Transport"
-                                    user = "postgres"  password = "gemini"/>
-                                    <sql:query  dataSource = "${snapshot}" var = "result">
-                                       SELECT * from users;
-                                    </sql:query>
-                                    
-                                       <span class="green-text text-lighten-1"><h5>Total Registered Users: &nbsp;${result.rowCount}</h5></span>
-                                </div>
-                            </a>
-=======
                             <span class="green-text text-lighten-1"><h5>Total Registered Users: &nbsp;${result.rowCount}</h5></span>
->>>>>>> 0599d7240122d0c06fda2cfd9b27a8e14a73f373
                         </div>
                     </a>
                 </div>
@@ -259,27 +212,6 @@
                             <label for='driver_name'>Driver Name</label>
                         </div>
                     </div>
-<<<<<<< HEAD
-                </div>
-                <div class="modal-footer">
-                    <a href="#!"  class="create-driver modal-action modal-close waves-effect waves-green btn-flat green">submit</a>
-                    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">close</a>
-                </div>
-            </div>
-            <div id="modal4" class="modal modal-fixed-footer">
-                <div class="modal-content">
-                    <h4>Modal Header</h4>
-                    <p>This is modal4</p>
-                </div>
-                <div class="modal-footer">
-                    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">close</a>
-                </div>
-            </div>
-            <div id="modal5" class="modal modal-fixed-footer">
-                <div class="modal-content">
-                    <h4>Fill In This Form To Add A New Vehicle</h4>
-=======
->>>>>>> 0599d7240122d0c06fda2cfd9b27a8e14a73f373
                     <div class="row">
                         <div class="input-field col s12">
                             <input id="email" type="text" class="validate">

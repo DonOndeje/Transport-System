@@ -35,7 +35,35 @@
             <li id="dash_dashboard"><a class="waves-effect" href="fleethome.jsp"><i class="small material-icons">dashboard</i><b>Dashboard</b></a></li>
             
             <ul class="collapsible" data-collapsible="accordion">
-                
+                <li id="dash_confirm_booking">
+                    <div id="dash_confirm_booking_header" class="collapsible-header waves-effect"><i class="small material-icons">book</i><b>Confirm Bookings</b></div>
+                    <div id="dash_booking_body" class="collapsible-body">
+                        <ul>
+                            <li id="booking_requests">
+                                <a class="waves-effect modal-trigger" href="#modal1" style="text-decoration: none;">
+                                    <i class="small material-icons">border_color</i>Booking Requests
+                                </a>
+                            </li>
+                            <li id="postpone_request">
+                                <a class="waves-effect modal-trigger" href="#modal2" style="text-decoration: none;">
+                                    <i class="small material-icons">date_range</i>Postpone Requests
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <li id="dash_schedule">
+                    <div id="dash_schedule_header" class="collapsible-header waves-effect"><i class="small material-icons">event</i><b>Schedule</b></div>
+                    <div id="dash_schedule_body" class="collapsible-body">
+                        <ul>
+                            <li id="confirmed_book">
+                                <a class="waves-effect modal-trigger" href="#modal1" style="text-decoration: none;">
+                                    <i class="small material-icons">done_all</i>Confirmed Bookings
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
             </ul> 
         </ul>
         
@@ -67,7 +95,7 @@
                         <div class="row">
                             <a href="#!">
                                 <div style="padding: 30px;" class="grey lighten-3 col s3 waves-effect">
-                                    <i class="green-text text-lighten-1 large material-icons">person</i>
+                                    <i class="green-text text-lighten-1 large material-icons">library_books</i>
                                     <span class="green-text text-lighten-1"><h5>Total Booking Requests</h5></span>
                                 </div>
                             </a>
@@ -76,7 +104,7 @@
                             
                             <a href="#!">
                                 <div style="padding: 30px;" class="grey lighten-3 col s3 waves-effect">
-                                    <i class="green-text text-lighten-1 large material-icons">person</i>
+                                    <i class="green-text text-lighten-1 large material-icons">date_range</i>
                                     <span class="green-text text-lighten-1"><h5>Total Postpone Requests</h5></span>
                                 </div>
                             </a>
@@ -85,7 +113,7 @@
                             
                             <a href="#!">
                                 <div style="padding: 30px;" class="grey lighten-3 col s3 waves-effect">
-                                    <i class="green-text text-lighten-1 large material-icons">book</i>
+                                    <i class="green-text text-lighten-1 large material-icons">done_all</i>
                                     <span class="green-text text-lighten-1"><h5>Total Confirmed Bookings</h5></span>
                                 </div>
                             </a>

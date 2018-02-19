@@ -4,9 +4,6 @@
     Author     : jqhn
 --%>
 
-    <script language="javascript" type="text/javascript" src="assets/js/jquery.min.js"></script>
-    <script language="javascript" type="text/javascript" src="assets/toastr/toastr.min.js"></script>
-    <script language="javascript" type="text/javascript" src="assets/js/main.js"></script>
     </body>
 </html>
 
