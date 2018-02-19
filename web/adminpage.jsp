@@ -137,7 +137,7 @@
                                     <i class="green-text text-lighten-1 large material-icons">people</i>
                                     <sql:setDataSource var = "drivers" driver = "org.postgresql.Driver"
                                     url = "jdbc:postgresql://localhost:5432/Transport"
-                                    user = "postgres"  password = "1234"/>
+                                    user = "postgres"  password = "gemini"/>
                                     <sql:query  dataSource = "${drivers}" var = "dresult">
                                        SELECT * from driver;
                                     </sql:query>
@@ -152,7 +152,7 @@
                                     <i class="green-text text-lighten-1 large material-icons">airport_shuttle</i>
                                     <sql:setDataSource var = "vehicle" driver = "org.postgresql.Driver"
                                     url = "jdbc:postgresql://localhost:5432/Transport"
-                                    user = "postgres"  password = "1234"/>
+                                    user = "postgres"  password = "gemini"/>
                                     <sql:query  dataSource = "${vehicle}" var = "vresult">
                                        SELECT * from vehicle;
                                     </sql:query>
@@ -167,7 +167,7 @@
                                     <i class="green-text text-lighten-1 large material-icons">people</i>
                                     <sql:setDataSource var = "snapshot" driver = "org.postgresql.Driver"
                                     url = "jdbc:postgresql://localhost:5432/Transport"
-                                    user = "postgres"  password = "1234"/>
+                                    user = "postgres"  password = "gemini"/>
                                     <sql:query  dataSource = "${snapshot}" var = "result">
                                        SELECT * from users;
                                     </sql:query>
@@ -245,7 +245,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">submit</a>
+                    <a href="#!"  class="create-driver modal-action modal-close waves-effect waves-green btn-flat green">submit</a>
                     <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">close</a>
                 </div>
             </div>
