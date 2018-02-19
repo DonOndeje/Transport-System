@@ -47,8 +47,6 @@
         </div>
     </li>
 
-    <li id="dash_dashboard"><a class="waves-effect" href="adminpage.jsp"><i class="small material-icons">dashboard</i><b>Dashboard</b></a></li>
-
     <ul class="collapsible" data-collapsible="accordion">
         <li id="dash_users">
             <div id="dash_users_header" class="collapsible-header waves-effect"><i class="small material-icons">people</i><b>Users</b></div>
@@ -101,7 +99,6 @@
 
 <header>
     <ul class="dropdown-content" id="user_dropdown">
-        <li><a class="green-text" href="#!">Profile</a></li>
         <li><a class="green-text" href="index.jsp"> Logout</a></li>
     </ul>
 
