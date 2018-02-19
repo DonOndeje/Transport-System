@@ -129,7 +129,7 @@
                             <i class="green-text text-lighten-1 large material-icons">people</i>
                             <sql:setDataSource var = "drivers" driver = "org.postgresql.Driver"
                                                url = "jdbc:postgresql://localhost:5432/Transport"
-                                               user = "postgres"  password = "254scorpio"/>
+                                               user = "postgres"  password = "1234"/>
                             <sql:query  dataSource = "${drivers}" var = "dresult">
                                 SELECT * from driver;
                             </sql:query>
@@ -144,7 +144,7 @@
                             <i class="green-text text-lighten-1 large material-icons">airport_shuttle</i>
                             <sql:setDataSource var = "vehicle" driver = "org.postgresql.Driver"
                                                url = "jdbc:postgresql://localhost:5432/Transport"
-                                               user = "postgres"  password = "254scorpio"/>
+                                               user = "postgres"  password = "1234"/>
                             <sql:query  dataSource = "${vehicle}" var = "vresult">
                                 SELECT * from vehicle;
                             </sql:query>
@@ -159,7 +159,7 @@
                             <i class="green-text text-lighten-1 large material-icons">people</i>
                             <sql:setDataSource var = "snapshot" driver = "org.postgresql.Driver"
                                                url = "jdbc:postgresql://localhost:5432/Transport"
-                                               user = "postgres"  password = "254scorpio"/>
+                                               user = "postgres"  password = "1234"/>
                             <sql:query  dataSource = "${snapshot}" var = "result">
                                 SELECT * from users;
                             </sql:query>
@@ -191,9 +191,18 @@
                             <td><c:out value = "${row.user_name}"/></td>
                             <td><c:out value = "${row.email}"/></td>
                             <td><c:out value = "${row.contact}"/></td>
-                            <td><button>delete</button></td>
-                        </tr>
-                    </c:forEach>
+                    <script>
+                        function ConfirmSubmitr() {
+                            var rem = confirm('Are You Sure You Want To Remove?');
+                            if (rem)
+                                return true;
+                            else
+                                return false;
+                        }
+                    </script>
+                    <td><a id="del" href="remover.jsp?id=${row.user_id}" class="waves-effect waves-green btn-flat green" onclick='return ConfirmSubmitr();'>delete</a></td>
+                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>
@@ -228,7 +237,7 @@
             </div>
         </div>
         <div class="modal-footer">
-           <button type='submit' form='addDrivers' class="modal-action waves-effect waves-green btn-flat green">Add Driver</button>
+            <button type='submit' form='addDrivers' class="modal-action waves-effect waves-green btn-flat green">Add Driver</button>
             <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">close</a>
         </div>
     </div>
@@ -290,7 +299,7 @@
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input name="capacity" id="capacity" type="text" class="validate">
+                            <input name="capacity" id="capacity" type="number" class="validate">
                             <label for='capacity'>Capacity</label>
                         </div>
                     </div>
@@ -343,5 +352,5 @@
         });
     </script>
 </main>
-                  
+
 <jsp:include page="./includes/footer.jsp" />
