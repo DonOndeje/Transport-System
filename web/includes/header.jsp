@@ -29,4 +29,5 @@
     </head>
     <body style="background-color: whitesmoke;"> 
       <script language="javascript" type="text/javascript" src="assets/fixLeanModal.js"></script>
+      <script language="javascript" type="text/javascript" src="assets/reusables.js"></script>
       <script language="javascript" type="text/javascript" src="assets/main.js"></script>

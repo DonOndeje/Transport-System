@@ -187,11 +187,11 @@
 
                 <tbody>
                     <c:forEach var = "row" items = "${result.rows}">
-                        <tr>
+                        <tr id="user-${row.user_id}">
                             <td><c:out value = "${row.user_name}"/></td>
                             <td><c:out value = "${row.email}"/></td>
                             <td><c:out value = "${row.contact}"/></td>
-                            <td><button>delete</button></td>
+                            <td><button class="delete-user waves-effect waves-teal btn-flat" id="${row.user_id}">delete</button></td>
                         </tr>
                     </c:forEach>
                 </tbody>
@@ -249,13 +249,13 @@
 
                 <tbody>
                     <c:forEach var = "row" items = "${dresult.rows}">
-                        <tr>
+                        <tr id="driver-${row.driver_id}">
                             <td><c:out value = "${row.driver_name}"/></td>
                             <td><c:out value = "${row.email}"/></td>
                             <td><c:out value = "${row.contact}"/></td>
                             <td><c:out value = "${row.availability}"/></td>
                             <td><button>Change Availability</button></td>
-                            <td><button>delete</button></td>
+                            <td><button id="${row.driver_id}" class="waves-effect waves-teal btn-flat delete-driver">delete</button></td>
                         </tr>
                     </c:forEach>
                 </tbody>
@@ -319,13 +319,13 @@
 
                 <tbody>
                     <c:forEach var = "row" items = "${vresult.rows}">
-                        <tr>
+                        <tr id="vehicle-${row.vehicle_id}">
                             <td><c:out value = "${row.vehicle_type}"/></td>
                             <td><c:out value = "${row.number_plate}"/></td>
                             <td><c:out value = "${row.capacity}"/></td>
                             <td><c:out value = "${row.availability}"/></td>
-                            <td><button>Change Availability</button></td>
-                            <td><button>delete</button></td>
+                            <td><button class="">Change Availability</button></td>
+                            <td><button class="waves-effect waves-teal btn-flat delete-vehicle" id="${row.vehicle_id}">delete</button></td>
                         </tr>
                     </c:forEach>
                 </tbody>
@@ -342,6 +342,7 @@
             $('select').material_select();
         });
     </script>
+    
 </main>
                   
 <jsp:include page="./includes/footer.jsp" />
