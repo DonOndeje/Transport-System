@@ -6,19 +6,17 @@
 
 <%@page import="java.io.PrintWriter"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%
+    response.setHeader("Cache-Control", "no-cache"); //Forces caches to obtain a new copy of the page from the origin server
+    response.setHeader("Cache-Control", "no-store"); //Directs caches not to store the page under any circumstance
+    response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
+    response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
+%>
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Home</title>
-        <link rel="stylesheet" href="materialize/css/materialize1.css">
-        <script language="javascript" type="text/javascript" src="materialize/js/materialize.js"></script>
-        <script language="javascript" type="text/javascript" src="materialize/js/material.js"></script>
-        <script language="javascript" type="text/javascript" src="materialize/js/materiali.js"></script>
-        <link rel="stylesheet" href="materialize/css/materialicons.css">
-    </head>
-    <body style="background-color: whitesmoke;">
+     <jsp:include page="./includes/header.jsp" />
+     <jsp:useBean id="users" class="com.example.Database.User" scope="request" />
+     <jsp:setProperty property="*" name="users"/>
 
         
         
@@ -41,17 +39,17 @@
                         <ul>
                             <li id="book">
                                 <a class="waves-effect modal-trigger" href="#modal1" style="text-decoration: none;">
-                                    <i class="small material-icons">person_add</i>Book
+                                    <i class="small material-icons">border_color</i>Book
                                 </a>
                             </li>
                             <li id="cancel_booking">
                                 <a class="waves-effect modal-trigger" href="#modal2" style="text-decoration: none;">
-                                    <i class="small material-icons">remove</i>Cancel A Booking
+                                    <i class="small material-icons">cancel</i>Cancel A Booking
                                 </a>
                             </li>
                             <li id="postpone_booking">
                                 <a class="waves-effect modal-trigger" href="#modal2" style="text-decoration: none;">
-                                    <i class="small material-icons">remove</i>Postpone A Booking
+                                    <i class="small material-icons">date_range</i>Postpone A Booking
                                 </a>
                             </li>
                         </ul>
@@ -63,12 +61,12 @@
                         <ul>
                             <li id="pending">
                                 <a class="waves-effect modal-trigger" href="#modal3" style="text-decoration: none;">
-                                    <i class="small material-icons">person_add</i>Pending Requests
+                                    <i class="small material-icons">schedule</i>Pending Requests
                                 </a>
                             </li>
                             <li id="confirmed">
                                 <a class="waves-effect modal-trigger" href="#modal4" style="text-decoration: none;">
-                                    <i class="small material-icons">remove</i>Confirmed Bookings
+                                    <i class="small material-icons">done_all</i>Confirmed Bookings
                                 </a>
                             </li>
                         </ul>
@@ -86,7 +84,7 @@
             <nav class="green darken-2" role="navigation">
                 <div class="nav-wrapper">
                     <ul class="right hide-on-med-and-down">
-                        <li><a class='right dropdown-button' href='' data-activates='user_dropdown'><i class=' material-icons'>account_circle</i></a></li>
+                         <li><a class='right dropdown-button' href='' data-activates='user_dropdown'><jsp:getProperty name ="users" property="email" /><i class=' material-icons right'>account_circle</i></a></li>
                     </ul>
                 </div>
             </nav>
@@ -105,7 +103,7 @@
                         <div class="row">
                             <a href="#!">
                                 <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
-                                    <i class="green-text text-lighten-1 large material-icons">person</i>
+                                    <i class="green-text text-lighten-1 large material-icons">schedule</i>
                                     <span class="green-text text-lighten-1"><h5>Your Pending Requests</h5></span>
                                 </div>
                             </a>
@@ -115,7 +113,7 @@
                             
                             <a href="#!">
                                 <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
-                                    <i class="green-text text-lighten-1 large material-icons">person</i>
+                                    <i class="green-text text-lighten-1 large material-icons">done_all</i>
                                     <span class="green-text text-lighten-1"><h5>Your Confirmed Bookings</h5></span>
                                 </div>
                             </a>
@@ -123,5 +121,4 @@
                     </div>
                 </div>
         </main>
-    </body>
-</html>
+    <jsp:include page="./includes/footer.jsp" />
