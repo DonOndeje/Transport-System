@@ -18,7 +18,7 @@ public class DriverDB extends Database {
 
     public void deleteDriver(HttpServletRequest request, HttpServletResponse response, String id) throws IOException, SQLException {
         this.connect();
-        this.createStatement("DELETE FROM driver WHERE driver_id=" + id);
+        this.createStatement("UPDATE driver SET deleted="+ 1 + " where driver_id=" + id);
 
         try {
             // execute delete SQL stetement
@@ -32,7 +32,7 @@ public class DriverDB extends Database {
             response.getWriter().write(text);
 
         } catch (SQLException e) {
-            String text = "Failed to delete user at the moment: " + e.getMessage();
+            String text = "Failed to delete driver at the moment: " + e.getMessage();
 
             response.setContentType("text/plain");
             response.setCharacterEncoding("UTF-8");

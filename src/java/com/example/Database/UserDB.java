@@ -7,6 +7,9 @@ import java.security.spec.InvalidKeySpecException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import com.transport.Authentication;
+import java.io.IOException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 /**
  *
  * @author JQHN
@@ -53,5 +56,45 @@ public class UserDB extends Database {
         int i = stmt.executeUpdate();
 
         return i;
+    }
+    
+    public void deleteUser (HttpServletRequest request, HttpServletResponse response, String id) throws IOException, SQLException {
+        this.connect();
+        this.createStatement("UPDATE users SET deleted=" + 1 + " where user_id=" + id);
+
+        try {
+            // execute delete SQL stetement
+            stmt.executeUpdate();
+
+            String text = "User successfully deleted";
+
+            response.setContentType("text/plain");
+            response.setCharacterEncoding("UTF-8");
+            response.setStatus(200);
+            response.getWriter().write(text);
+
+        } catch (SQLException e) {
+            String text = "Failed to delete user at the moment: " + e.getMessage();
+
+            response.setContentType("text/plain");
+            response.setCharacterEncoding("UTF-8");
+            response.setStatus(403);
+            response.getWriter().write(text);
+
+        } finally {
+
+            if (stmt != null) {
+                //stmt.close();
+            }
+
+            if (conn != null) {
+                //conn.close();
+            }
+
+        }
+    }
+    
+    public void changeAvailability (HttpServletRequest request, HttpServletResponse response, String id) {
+        
     }
 }

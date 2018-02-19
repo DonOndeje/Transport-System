@@ -131,7 +131,7 @@
                                                url = "jdbc:postgresql://localhost:5432/Transport"
                                                user = "postgres"  password = "gemini"/>
                             <sql:query  dataSource = "${drivers}" var = "dresult">
-                                SELECT * from driver;
+                                SELECT * from driver WHERE deleted=0;
                             </sql:query>
                             <span class="green-text text-lighten-1"><h5>Total Available Drivers: &nbsp;${dresult.rowCount}</h5></span>
                         </div>
@@ -146,7 +146,7 @@
                                                url = "jdbc:postgresql://localhost:5432/Transport"
                                                user = "postgres"  password = "gemini"/>
                             <sql:query  dataSource = "${vehicle}" var = "vresult">
-                                SELECT * from vehicle;
+                                SELECT * from vehicle WHERE deleted=0;
                             </sql:query>
                             <span class="green-text text-lighten-1"><h5>Total Available Vehicles: &nbsp;${vresult.rowCount}</h5></span>
                         </div>
@@ -161,7 +161,7 @@
                                                url = "jdbc:postgresql://localhost:5432/Transport"
                                                user = "postgres"  password = "gemini"/>
                             <sql:query  dataSource = "${snapshot}" var = "result">
-                                SELECT * from users;
+                                SELECT * from users WHERE deleted=0;
                             </sql:query>
 
                             <span class="green-text text-lighten-1"><h5>Total Registered Users: &nbsp;${result.rowCount}</h5></span>

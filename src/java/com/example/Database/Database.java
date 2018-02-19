@@ -45,7 +45,7 @@ public class Database { // this class handles all database connections
             this.connect();
             stmt = this.conn.prepareStatement(sql);
         } else {
-            stmt = conn.prepareStatement(sql);
+            stmt = this.conn.prepareStatement(sql);
         }
     }
 

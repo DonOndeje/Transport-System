@@ -59,28 +59,47 @@ $(document).ready(function(){
           $(this).html(preloaderHtml);
           
           $.ajax({
-            url: "/TripManagement/Driver",
+            url: "/TripManagement/User",
             method: 'GET',
             data: {
                 id : $this.attr('id'),
                 action : 'delete'
             },
             success: function (result) {
-                $('#driver-'+$this.attr('id')).hide();
+                $('#user-'+$this.attr('id')).hide();
                 displayToast(result, "success");
                 $this.html("Delete");
             },
             error: function (event, jqxhr, settings) {
                 displayToast(event.responseText, "error");
+                console.log(event.responseText);
                 $this.html("Delete");
             }
          });
-          displayToast("Deleting user " + $(this).attr('id'), "info");
       });
       
       $('.delete-vehicle').click(function () {
+          var $this = $(this);
           $(this).html(preloaderHtml);
-          displayToast("Deleting vehicle " + $(this).attr('id'), "info");
+          
+           $.ajax({
+            url: "/TripManagement/Vehicle",
+            method: 'GET',
+            data: {
+                id : $this.attr('id'),
+                action : 'delete'
+            },
+            success: function (result) {
+                $('#vehicle-'+$this.attr('id')).hide();
+                displayToast(result, "success");
+                $this.html("Delete");
+            },
+            error: function (event, jqxhr, settings) {
+                displayToast(event.responseText, "error");
+                console.log(event.responseText);
+                $this.html("Delete");
+            }
+         });
       });
    
 });
