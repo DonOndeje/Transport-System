@@ -4,9 +4,17 @@
         <servlet-name>Main</servlet-name>
         <servlet-class>com.transport.Main</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DriverController</servlet-name>
+        <servlet-class>com.transport.DriverController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Main</servlet-name>
         <url-pattern>/Main</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DriverController</servlet-name>
+        <url-pattern>/Driver</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

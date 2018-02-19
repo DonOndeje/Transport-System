@@ -32,12 +32,49 @@ $(document).ready(function(){
                           </div>`;
       
       $('.delete-driver').click( function () {
+         var $this = $(this);
          $(this).html(preloaderHtml);
-         displayToast("Deleting driver " + $(this).attr('id'), "info");  
+         
+         $.ajax({
+            url: "/TripManagement/Driver",
+            method: 'GET',
+            data: {
+                id : $this.attr('id'),
+                action : 'delete'
+            },
+            success: function (result) {
+                $('#driver-'+$this.attr('id')).hide();
+                displayToast(result, "success");
+                $this.html("Delete");
+            },
+            error: function (event, jqxhr, settings) {
+                displayToast(event.responseText, "error");
+                $this.html("Delete");
+            }
+         });
       });
              
       $('.delete-user').click(function () {
+          var $this = $(this);
           $(this).html(preloaderHtml);
+          
+          $.ajax({
+            url: "/TripManagement/Driver",
+            method: 'GET',
+            data: {
+                id : $this.attr('id'),
+                action : 'delete'
+            },
+            success: function (result) {
+                $('#driver-'+$this.attr('id')).hide();
+                displayToast(result, "success");
+                $this.html("Delete");
+            },
+            error: function (event, jqxhr, settings) {
+                displayToast(event.responseText, "error");
+                $this.html("Delete");
+            }
+         });
           displayToast("Deleting user " + $(this).attr('id'), "info");
       });
       
