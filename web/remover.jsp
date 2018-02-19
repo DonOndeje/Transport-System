@@ -12,6 +12,8 @@
 
 <%
     String id=request.getParameter("id");
+    String did=request.getParameter("did");
+    String vid=request.getParameter("vid");
     
     Connection conn = null;
     String jdbcUrl = "jdbc:postgresql://localhost:5432/Transport";
@@ -39,6 +41,8 @@
     Statement st = conn.createStatement();
     
      int i = st.executeUpdate("DELETE FROM users WHERE user_id ="+id);
+     int j = st.executeUpdate("DELETE FROM driver WHERE driver_id ="+did);
+     int k = st.executeUpdate("DELETE FROM vehicle WHERE vehicle_id ="+vid);
      
       if(i>0){
 //          String url = "/adminpage.jsp";

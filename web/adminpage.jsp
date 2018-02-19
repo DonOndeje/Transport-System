@@ -264,9 +264,18 @@
                             <td><c:out value = "${row.contact}"/></td>
                             <td><c:out value = "${row.availability}"/></td>
                             <td><button>Change Availability</button></td>
-                            <td><button>delete</button></td>
+                            <script>
+                                function ConfirmSubmitd() {
+                                    var rem = confirm('Are You Sure You Want To Remove?');
+                                    if (rem)
+                                        return true;
+                                    else
+                                        return false;
+                                }
+                            </script>
+                            <td><a id="del" href="remover.jsp?did=${row.driver_id}" class="waves-effect waves-green btn-flat green" onclick='return ConfirmSubmitd();'>delete</a></td>
                         </tr>
-                    </c:forEach>
+                </c:forEach>
                 </tbody>
             </table>
         </div>
@@ -334,7 +343,16 @@
                             <td><c:out value = "${row.capacity}"/></td>
                             <td><c:out value = "${row.availability}"/></td>
                             <td><button>Change Availability</button></td>
-                            <td><button>delete</button></td>
+                            <script>
+                                function ConfirmSubmitv() {
+                                    var rem = confirm('Are You Sure You Want To Remove?');
+                                    if (rem)
+                                        return true;
+                                    else
+                                        return false;
+                                }
+                            </script>
+                            <td><a id="del" href="remover.jsp?vid=${row.vehicle_id}" class="waves-effect waves-green btn-flat green" onclick='return ConfirmSubmitv();'>delete</a></td>
                         </tr>
                     </c:forEach>
                 </tbody>
