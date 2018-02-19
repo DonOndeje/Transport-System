@@ -20,10 +20,21 @@
         <script language="javascript" type="text/javascript" src="materialize/js/materialize.js"></script>
         <script language="javascript" type="text/javascript" src="materialize/js/material.js"></script>
         <script language="javascript" type="text/javascript" src="materialize/js/materiali.js"></script>
+        <style type="text/css">
+            html, body {
+                height: 100%;
+                margin: 0px;
+            }
+            .container {
+                height: 100%;
+            }        
+        </style>
     </head>
     <body style="background-color: whitesmoke">
    
-        <div style="background:url(images/logo.gif);padding:60px; background-size: cover;"></div>
+        <div class="z-depth-5 container" style="background-color: whitesmoke;">
+            
+            <div style="background-image: url(images/logo.png); padding: 80px; width: 975; height: 170; background-size: cover;"></div>
         <div style="font-family: fantasy; font-size: 35px; text-align: center; background-color: rgb(76, 175, 80);">TRIP MANAGEMENT SYSTEM</div>
         <br>
         <div>
@@ -57,6 +68,7 @@
                     </div>
                 </center>
             </main>
+        </div>
         </div>
     </body>
 </html>
