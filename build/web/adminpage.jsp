@@ -1,26 +1,25 @@
 
 
+
+
 <%@page import="java.util.Enumeration"%>
 <%@page import="java.io.PrintWriter"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import = "java.io.*,java.util.*,java.sql.*"%>
+<%@ page import = "javax.servlet.http.*,javax.servlet.*" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
+<%@page import="java.util.Enumeration"%>
+<%@page import="java.io.PrintWriter"%>
+
 <%
     response.setHeader("Cache-Control", "no-cache"); //Forces caches to obtain a new copy of the page from the origin server
     response.setHeader("Cache-Control", "no-store"); //Directs caches not to store the page under any circumstance
     response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
     response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
 %>
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Administration</title>
-        <link rel="stylesheet" href="materialize/css/materialize1.css">
-        <script language="javascript" type="text/javascript" src="materialize/js/materialize.js"></script>
-        <script language="javascript" type="text/javascript" src="materialize/js/material.js"></script>
-        <script language="javascript" type="text/javascript" src="materialize/js/materiali.js"></script>
-        <link rel="stylesheet" href="materialize/css/materialicons.css">
-    </head>
-    <body style="background-color: whitesmoke;">
+    
+<jsp:include page="./includes/header.jsp" />    
         <jsp:useBean id="users" class="com.example.Database.User" scope="request" />
         <jsp:setProperty property="*" name="users"/>
         
@@ -38,7 +37,8 @@
                     }
                 }
             }
-            
+            System.out.println(session.getId());
+            System.out.println(session.getAttribute("admin"));
             session.invalidate();
         %>
 
@@ -269,5 +269,10 @@
                 });
             </script>
         </main>
-    </body>
-</html>
+ <jsp:include page="./includes/footer.jsp" />
+            $('select').material_select();
+                });
+            </script>
+        </main>
+    <jsp:include page="./includes/footer.jsp" />
+

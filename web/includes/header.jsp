@@ -15,5 +15,14 @@
         <script language="javascript" type="text/javascript" src="materialize/js/material.js"></script>
         <script language="javascript" type="text/javascript" src="materialize/js/materiali.js"></script>
         <link rel="stylesheet" href="materialize/css/materialicons.css">
+        <style type="text/css">
+            html, body {
+                height: 100%;
+                margin: 0px;
+            }
+            .container {
+                height: 100%;
+            }        
+        </style>
     </head>
     <body style="background-color: whitesmoke;"> 
