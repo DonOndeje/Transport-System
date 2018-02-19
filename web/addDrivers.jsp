@@ -18,7 +18,7 @@
     Connection conn = null;
     String jdbcUrl = "jdbc:postgresql://localhost:5432/Transport";
     String username = "postgres";
-    String password = "254scorpio";
+    String password = "gemini";
     try {
             // Step 2 - Open connection
             Class.forName("org.postgresql.Driver");
