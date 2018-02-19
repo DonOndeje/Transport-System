@@ -10,12 +10,14 @@
        response.setHeader("Cache-Control", "no-store"); //Directs caches not to store the page under any circumstance
        response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
        response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
+       String message = (String) request.getAttribute("message");
+       if(message==null) message="";
    %>
 <jsp:include page="./includes/header.jsp" />
 
-        <div class="container" style="background-color: whitesmoke;">
-            <div class="z-depth-5">
-            <div style="background-image: url(images/logo.png); padding: 80px; width: 975; height: 170;"></div>
+        <div class="z-depth-5 container" style="background-color: whitesmoke;">
+            
+            <div style="background-image: url(images/logo.png); padding: 80px; width: 975; height: 170; background-size: cover;"></div>
         <div style="font-family: fantasy; font-size: 35px; text-align: center; background-color: rgb(76, 175, 80);">TRIP MANAGEMENT SYSTEM</div>
         <br>
         <div
@@ -24,6 +26,7 @@
                     <div class="container">
                         <div class="z-depth-1 grey lighten-4 row" style="display: inline-block; padding: 32px 48px 0px 48px; border: 1px solid #EEE;">
                             <form class="col s12" method="post" action="Main">
+                                <b><font color="red"><%= message %></font></b>
                                 <div class='row'>
                                     <div class='col s12'></div>
                                 </div>
@@ -57,5 +60,5 @@
             </main>
         </div>
         </div>
-        </div>
+       
     <jsp:include page="./includes/footer.jsp" />

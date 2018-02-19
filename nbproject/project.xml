@@ -15,6 +15,7 @@
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
                 <library dirs="200">
+<<<<<<< HEAD
                     <file>${file.reference.taglibs-standard-jstlel-1.2.5.jar}</file>
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
@@ -28,6 +29,13 @@
                 </library>
                 <library dirs="200">
                     <file>${file.reference.taglibs-standard-spec-1.2.5.jar}</file>
+=======
+                    <file>${libs.jstl.classpath}</file>
+                    <path-in-war>WEB-INF/lib</path-in-war>
+                </library>
+                <library dirs="200">
+                    <file>${libs.jstl1.classpath}</file>
+>>>>>>> 0599d7240122d0c06fda2cfd9b27a8e14a73f373
                     <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
