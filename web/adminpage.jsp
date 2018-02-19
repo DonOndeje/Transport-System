@@ -34,7 +34,7 @@
     }
     System.out.println(session.getId());
     System.out.println(session.getAttribute("admin"));
-    session.invalidate();
+    //
 %>
 
 <ul id="slide-out" class="side-nav fixed z-depth-2" style="background-color: whitesmoke">
@@ -129,7 +129,7 @@
                             <i class="green-text text-lighten-1 large material-icons">people</i>
                             <sql:setDataSource var = "drivers" driver = "org.postgresql.Driver"
                                                url = "jdbc:postgresql://localhost:5432/Transport"
-                                               user = "postgres"  password = "1234"/>
+                                               user = "postgres"  password = "254scorpio"/>
                             <sql:query  dataSource = "${drivers}" var = "dresult">
                                 SELECT * from driver;
                             </sql:query>
@@ -144,7 +144,7 @@
                             <i class="green-text text-lighten-1 large material-icons">airport_shuttle</i>
                             <sql:setDataSource var = "vehicle" driver = "org.postgresql.Driver"
                                                url = "jdbc:postgresql://localhost:5432/Transport"
-                                               user = "postgres"  password = "1234"/>
+                                               user = "postgres"  password = "254scorpio"/>
                             <sql:query  dataSource = "${vehicle}" var = "vresult">
                                 SELECT * from vehicle;
                             </sql:query>
@@ -159,7 +159,7 @@
                             <i class="green-text text-lighten-1 large material-icons">people</i>
                             <sql:setDataSource var = "snapshot" driver = "org.postgresql.Driver"
                                                url = "jdbc:postgresql://localhost:5432/Transport"
-                                               user = "postgres"  password = "1234"/>
+                                               user = "postgres"  password = "254scorpio"/>
                             <sql:query  dataSource = "${snapshot}" var = "result">
                                 SELECT * from users;
                             </sql:query>
@@ -205,22 +205,22 @@
         <div class="modal-content">
             <h4>Fill In This Form To Add A New Driver</h4>
             <div class="row">
-                <form class="col s12">
+                <form class="col s12" action="addDrivers.jsp" method="post" name="addDrivers" id="addDrivers">
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="driver_name" type="text" class="validate">
+                            <input id="driver_name" name ="driver_name"type="text" class="validate">
                             <label for='driver_name'>Driver Name</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="email" type="text" class="validate">
+                            <input id="email" type="text" name ="email"class="validate">
                             <label for='email'>Email</label>
                         </div>
                     </div>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input id="contact" type="text" class="validate">
+                            <input id="contact" type="text" name = "contact"class="validate">
                             <label for='contact'>Contact</label>
                         </div>
                     </div>
@@ -228,7 +228,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">submit</a>
+           <button type='submit' form='addDrivers' class="modal-action waves-effect waves-green btn-flat green">Add Driver</button>
             <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">close</a>
         </div>
     </div>
@@ -269,7 +269,7 @@
         <div class="modal-content">
             <h4>Fill In This Form To Add A New Vehicle</h4>
             <div class="row">
-                <form class="col s12" name="addVehicle" id="addVehicle" method="post" action="tester.jsp">
+                <form class="col s12" name="addVehicle" id="addVehicle" method="post" action="addVehicles.jsp">
                     <div class="row">
                         <div class="input-field col s12">
                             <select name="vehicle_type">
@@ -343,4 +343,5 @@
         });
     </script>
 </main>
+                  
 <jsp:include page="./includes/footer.jsp" />
