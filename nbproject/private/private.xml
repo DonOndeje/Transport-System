@@ -1,36 +1,12 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8"?>
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/jqhn/Documents/Transport-System/web/fleethome.jsp</file>
-            <file>file:/home/jqhn/Documents/Transport-System/src/java/com/example/Database/DriversDB.java</file>
             <file>file:/home/jqhn/Documents/Transport-System/web/adminpage.jsp</file>
             <file>file:/home/jqhn/Documents/Transport-System/src/java/com/transport/Main.java</file>
-            <file>file:/home/jqhn/Documents/Transport-System/src/java/com/example/Database/Database.java</file>
             <file>file:/home/jqhn/Documents/Transport-System/src/java/com/example/Database/UserDB.java</file>
-            <file>file:/home/jqhn/Documents/Transport-System/web/includes/footer.jsp</file>
-            <file>file:/home/jqhn/Documents/Transport-System/src/java/com/example/Database/VehiclesDB.java</file>
-            <file>file:/home/jqhn/Documents/Transport-System/src/java/com/example/Database/User.java</file>
-            <file>file:/home/jqhn/Documents/Transport-System/web/index.jsp</file>
-            <file>file:/home/jqhn/Documents/Transport-System/web/includes/header.jsp</file>
-            <file>file:/home/jqhn/Documents/Transport-System/web/passreset.jsp</file>
+            <file>file:/home/jqhn/Documents/Transport-System/src/java/com/example/Database/Database.java</file>
         </group>
     </open-files>
 </project-private>
-=======
-<?xml version="1.0" encoding="UTF-8"?>
-<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
-    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
-    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/Don/Documents/NetBeansProjects/Transport-System/src/java/com/transport/Authentication.java</file>
-            <file>file:/C:/Users/Don/Documents/NetBeansProjects/Transport-System/src/java/com/example/Database/UserDB.java</file>
-            <file>file:/C:/Users/Don/Documents/NetBeansProjects/Transport-System/src/java/com/transport/Main.java</file>
-            <file>file:/C:/Users/Don/Documents/NetBeansProjects/Transport-System/src/java/com/example/Database/Database.java</file>
-            <file>file:/C:/Users/Don/Documents/NetBeansProjects/Transport-System/web/adminpage.jsp</file>
-        </group>
-    </open-files>
-</project-private>
->>>>>>> 0599d7240122d0c06fda2cfd9b27a8e14a73f373
