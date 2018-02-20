@@ -32,6 +32,8 @@ public class DriverController extends HttpServlet {
             driver.deleteDriver(request, response, id);
         } else if (action.equals("changeAvailability")) {
             driver.changeAvailability(request, response, id);
+        } else if (action.equals("add")) {
+            driver.addDriver(request, response);
         } else {
             String text = "The action you are trying to access is not available";
 

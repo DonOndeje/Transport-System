@@ -104,7 +104,7 @@ $(document).ready(function () {
 
     $('.add-vehicle').click(function () {
         var $this = $(this);
-        $(this).html(preloaderHtml);
+        //$(this).html(preloaderHtml);
                 
         $.ajax({
             url: "/TripManagement/Vehicle",
@@ -119,16 +119,43 @@ $(document).ready(function () {
             success: function (result) {
                 $('#vehicle-' + $this.attr('id')).hide();
                 displayToast(result, "success");
-                $this.html("Delete");
+                //$this.html("Delete");
             },
             error: function (event, jqxhr, settings) {
                 displayToast(event.responseText, "error");
                 console.log(event.responseText);
-                $this.html("Delete");
+                //$this.html("Delete");
             }
         });
     });
 
+
+    $('.add-driver').click(function () {
+        var $this = $(this);
+        //$(this).html(preloaderHtml);
+              //console.log($("#driver_name").val() + ":" + $("#email").val() + ":" + $("#contact").val());  
+        $.ajax({
+            url: "/TripManagement/Driver",
+            method: 'POST',
+            data: {
+                id: $this.attr('id'),
+                action: 'add',
+                driver_name: $("#driver_name").val(),
+                email: $("#email").val(),
+                contact: $("#contact").val()
+            },
+            success: function (result) {
+                $('#vehicle-' + $this.attr('id')).hide();
+                displayToast(result, "success");
+                //$this.html("Delete");
+            },
+            error: function (event, jqxhr, settings) {
+                displayToast(event.responseText, "error");
+                console.log(event.responseText);
+                //$this.html("Delete");
+            }
+        });
+    });
 });
 
 

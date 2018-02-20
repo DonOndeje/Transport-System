@@ -205,7 +205,7 @@
         <div class="modal-content">
             <h4>Fill In This Form To Add A New Driver</h4>
             <div class="row">
-                <form class="col s12" action="addDrivers.jsp" method="post" name="addDrivers" id="addDrivers">
+                <form class="col s12" method="post" name="addDrivers" id="addDrivers">
                     <div class="row">
                         <div class="input-field col s12">
                             <input id="driver_name" name ="driver_name"type="text" class="validate">
@@ -228,7 +228,7 @@
             </div>
         </div>
         <div class="modal-footer">
-           <button type='submit' form='addDrivers' class="modal-action waves-effect waves-green btn-flat green">Add Driver</button>
+           <button  class="add-driver modal-action waves-effect waves-green btn-flat green">Add Driver</button>
             <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">close</a>
         </div>
     </div>

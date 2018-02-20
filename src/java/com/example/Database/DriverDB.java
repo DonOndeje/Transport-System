@@ -16,9 +16,93 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DriverDB extends Database {
 
+    public void addDriver(HttpServletRequest request, HttpServletResponse response) throws SQLException, IOException {
+
+        String driver_name = request.getParameter("driver_name");
+        String email = request.getParameter("email").toUpperCase();
+        String contact = request.getParameter("contact");
+
+        this.connect();
+        this.createStatement("INSERT INTO driver (driver_name,email,contact) VALUES('" + driver_name + "','" + email +"','"+ contact +"')");
+
+        try {
+            // execute delete SQL stetement
+            int i = stmt.executeUpdate();
+            String text = null;
+            if (i > 0) {
+                response.setStatus(200);
+                text = "Driver added successfully";
+            } else {
+                response.setStatus(403);
+                text = "Failed to add driver at the moment";
+            }
+
+            response.setContentType("text/plain");
+            response.setCharacterEncoding("UTF-8");
+            response.getWriter().write(text);
+
+        } catch (SQLException e) {
+
+            String text = "Failed to add driver at the moment: ";
+            System.out.println(e.getMessage());
+
+            response.setContentType("text/plain");
+            response.setCharacterEncoding("UTF-8");
+            response.setStatus(403);
+            response.getWriter().write(text);
+
+        } finally {
+
+            if (stmt != null) {
+                //stmt.close();
+            }
+
+            if (conn != null) {
+                //conn.close();
+            }
+
+        }
+    }
+
+    public void deleteVehicle(HttpServletRequest request, HttpServletResponse response, String id) throws SQLException, IOException {
+        this.connect();
+        this.createStatement("UPDATE vehicle SET deleted=" + 1 + " where vehicle_id=" + id);
+
+        try {
+            // execute delete SQL stetement
+            stmt.executeUpdate();
+
+            String text = "Vehicle successfully deleted";
+
+            response.setContentType("text/plain");
+            response.setCharacterEncoding("UTF-8");
+            response.setStatus(200);
+            response.getWriter().write(text);
+
+        } catch (SQLException e) {
+            String text = "Failed to delete vehicle at the moment: " + e.getMessage();
+
+            response.setContentType("text/plain");
+            response.setCharacterEncoding("UTF-8");
+            response.setStatus(403);
+            response.getWriter().write(text);
+
+        } finally {
+
+            if (stmt != null) {
+                //stmt.close();
+            }
+
+            if (conn != null) {
+                //conn.close();
+            }
+
+        }
+    }
+
     public void deleteDriver(HttpServletRequest request, HttpServletResponse response, String id) throws IOException, SQLException {
         this.connect();
-        this.createStatement("UPDATE driver SET deleted="+ 1 + " where driver_id=" + id);
+        this.createStatement("UPDATE driver SET deleted=" + 1 + " where driver_id=" + id);
 
         try {
             // execute delete SQL stetement
