@@ -102,6 +102,33 @@ $(document).ready(function () {
         });
     });
 
+    $('.add-vehicle').click(function () {
+        var $this = $(this);
+        $(this).html(preloaderHtml);
+                
+        $.ajax({
+            url: "/TripManagement/Vehicle",
+            method: 'POST',
+            data: {
+                id: $this.attr('id'),
+                action: 'add',
+                vehicleType: $("#vehicle_type").val(),
+                numberPlate: $("#number_plate").val(),
+                capacity: $("#capacity").val()
+            },
+            success: function (result) {
+                $('#vehicle-' + $this.attr('id')).hide();
+                displayToast(result, "success");
+                $this.html("Delete");
+            },
+            error: function (event, jqxhr, settings) {
+                displayToast(event.responseText, "error");
+                console.log(event.responseText);
+                $this.html("Delete");
+            }
+        });
+    });
+
 });
 
 

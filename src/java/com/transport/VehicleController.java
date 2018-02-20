@@ -31,7 +31,9 @@ public class VehicleController extends HttpServlet {
             vehicle.deleteVehicle(request, response, id);
         } else if (action.equals("changeAvailability")) {
             vehicle.changeAvailability(request, response, id);
-        } else {
+        } else if (action.equals("add")) {
+            vehicle.addVehicle(request, response);
+        }else {
             String text = "The action you are trying to access is not available";
 
             response.setContentType("text/plain");

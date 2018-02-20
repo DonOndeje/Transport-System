@@ -269,10 +269,10 @@
         <div class="modal-content">
             <h4>Fill In This Form To Add A New Vehicle</h4>
             <div class="row">
-                <form class="col s12" name="addVehicle" id="addVehicle" method="post" action="addVehicles.jsp">
+                <form class="col s12" name="addVehicle" id="addVehicle" method="post">
                     <div class="row">
                         <div class="input-field col s12">
-                            <select name="vehicle_type">
+                            <select name="vehicle_type" id="vehicle_type">
                                 <option value="" disabled selected>Choose Vehicle Type</option>
                                 <option value="Bus">Bus</option>
                                 <option value="Mini-Bus">Mini-Bus</option>
@@ -298,7 +298,7 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button type='submit' form='addVehicle' class="modal-action modal-close waves-effect waves-green btn-flat green">Add Vehicle</button>
+            <button class="add-vehicle modal-action modal-close waves-effect waves-green btn-flat green">Add Vehicle</button>
             <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">close</a>
         </div>
     </div>
@@ -324,7 +324,7 @@
                             <td><c:out value = "${row.number_plate}"/></td>
                             <td><c:out value = "${row.capacity}"/></td>
                             <td><c:out value = "${row.availability}"/></td>
-                            <td><button class="">Change Availability</button></td>
+                            <td><button class="waves-effect waves-teal btn-flat">Change Availability</button></td>
                             <td><button class="waves-effect waves-teal btn-flat delete-vehicle" id="${row.vehicle_id}">delete</button></td>
                         </tr>
                     </c:forEach>
