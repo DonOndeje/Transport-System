@@ -1,6 +1,6 @@
 
 
-$(document).ready(function(){
+$(document).ready(function () {
     toastr.options = {
         "closeButton": false,
         "debug": false,
@@ -17,9 +17,9 @@ $(document).ready(function(){
         "hideEasing": "linear",
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
-      }
-      
-      var preloaderHtml = `<div class="preloader-wrapper small active">
+    }
+
+    var preloaderHtml = `<div class="preloader-wrapper small active">
                             <div class="spinner-layer spinner-green-only">
                               <div class="circle-clipper left">
                                 <div class="circle"></div>
@@ -30,20 +30,20 @@ $(document).ready(function(){
                               </div>
                             </div>
                           </div>`;
-      
-      $('.delete-driver').click( function () {
-         var $this = $(this);
-         $(this).html(preloaderHtml);
-         
-         $.ajax({
+
+    $('.delete-driver').click(function () {
+        var $this = $(this);
+        $(this).html(preloaderHtml);
+
+        $.ajax({
             url: "/TripManagement/Driver",
             method: 'GET',
             data: {
-                id : $this.attr('id'),
-                action : 'delete'
+                id: $this.attr('id'),
+                action: 'delete'
             },
             success: function (result) {
-                $('#driver-'+$this.attr('id')).hide();
+                $('#driver-' + $this.attr('id')).hide();
                 displayToast(result, "success");
                 $this.html("Delete");
             },
@@ -51,22 +51,22 @@ $(document).ready(function(){
                 displayToast(event.responseText, "error");
                 $this.html("Delete");
             }
-         });
-      });
-             
-      $('.delete-user').click(function () {
-          var $this = $(this);
-          $(this).html(preloaderHtml);
-          
-          $.ajax({
+        });
+    });
+
+    $('.delete-user').click(function () {
+        var $this = $(this);
+        $(this).html(preloaderHtml);
+
+        $.ajax({
             url: "/TripManagement/User",
             method: 'GET',
             data: {
-                id : $this.attr('id'),
-                action : 'delete'
+                id: $this.attr('id'),
+                action: 'delete'
             },
             success: function (result) {
-                $('#user-'+$this.attr('id')).hide();
+                $('#user-' + $this.attr('id')).hide();
                 displayToast(result, "success");
                 $this.html("Delete");
             },
@@ -75,22 +75,22 @@ $(document).ready(function(){
                 console.log(event.responseText);
                 $this.html("Delete");
             }
-         });
-      });
-      
-      $('.delete-vehicle').click(function () {
-          var $this = $(this);
-          $(this).html(preloaderHtml);
-          
-           $.ajax({
+        });
+    });
+
+    $('.delete-vehicle').click(function () {
+        var $this = $(this);
+        $(this).html(preloaderHtml);
+
+        $.ajax({
             url: "/TripManagement/Vehicle",
             method: 'GET',
             data: {
-                id : $this.attr('id'),
-                action : 'delete'
+                id: $this.attr('id'),
+                action: 'delete'
             },
             success: function (result) {
-                $('#vehicle-'+$this.attr('id')).hide();
+                $('#vehicle-' + $this.attr('id')).hide();
                 displayToast(result, "success");
                 $this.html("Delete");
             },
@@ -99,9 +99,9 @@ $(document).ready(function(){
                 console.log(event.responseText);
                 $this.html("Delete");
             }
-         });
-      });
-   
+        });
+    });
+
 });
 
 
