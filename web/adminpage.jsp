@@ -1,278 +1,374 @@
-<%-- 
-    Document   : adminpage
-    Created on : Jan 17, 2018, 6:17:59 PM
-    Author     : Josh Murunga
---%>
 
+
+<%@page import="java.util.Enumeration"%>
+<%@page import="java.io.PrintWriter"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import = "java.io.*,java.util.*,java.sql.*"%>
+<%@ page import = "javax.servlet.http.*,javax.servlet.*" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/core" prefix = "c"%>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
+<%
+    response.setHeader("Cache-Control", "no-cache"); //Forces caches to obtain a new copy of the page from the origin server
+    response.setHeader("Cache-Control", "no-store"); //Directs caches not to store the page under any circumstance
+    response.setDateHeader("Expires", 0); //Causes the proxy cache to see the page as "stale"
+    response.setHeader("Pragma", "no-cache"); //HTTP 1.0 backward compatibility
+%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Admin Home</title>
-        <link rel="stylesheet" href="materialize/css/materialize.css">
-        <script language="javascript" type="text/javascript" src="materialize/js/materialize.js"></script>
-        <script language="javascript" type="text/javascript" src="materialize/js/material.js"></script>
-        <script language="javascript" type="text/javascript" src="materialize/js/materiali.js"></script>
-    </head>
-    <body style="background-color: whitesmoke">
-          <ul id="slide-out" class="side-nav fixed z-depth-2" >
+<jsp:include page="./includes/header.jsp" />
+<jsp:useBean id="users" class="com.example.Database.User" scope="request" />
+<jsp:setProperty property="*" name="users"/>
+
+<%
+    // The session object is a built-in JSP object hence on need to create it when working with JSPs.
+    Cookie[] cookies = request.getCookies();
+    if (cookies != null) {
+        for (Cookie cookie : cookies) {
+            if (cookie.getName().equals("admin")) {
+
+                System.out.println(cookie.getValue());
+                if (session.getAttribute("admin") == null) {
+                    response.sendRedirect("index.jsp");
+                }
+            }
+        }
+    }
+    System.out.println(session.getId());
+    System.out.println(session.getAttribute("admin"));
+    //
+%>
+
+<ul id="slide-out" class="side-nav fixed z-depth-2" style="background-color: whitesmoke">
     <li class="center no-padding">
-      <div class="indigo darken-2 white-text" style="height: 180px;">
-        <div class="row">
-          <img style="margin-top: 5%;" width="100" height="100" src="" class="circle responsive-img" />
-          <div></div>
-          <p style="margin-top: -13%;">
-            The Administrator
-          </p>
+        <div class="green darken-2 white-text" style="height: 175px;">
+            <div class="row">
+                <img style="margin-top: 5%;" width="100" height="100" src="images/egertonlogo.jpg" class="circle" /><br><br>
+                <p style="margin-top: -13%;">Administration</p>
+            </div>
         </div>
-      </div>
     </li>
 
-    <li id="dash_dashboard"><a class="waves-effect" href="adminpage.jsp"><b>Dashboard</b></a></li>
-
     <ul class="collapsible" data-collapsible="accordion">
-      <li id="dash_users">
-        <div id="dash_users_header" class="collapsible-header waves-effect"><b>Users</b></div>
-        <div id="dash_users_body" class="collapsible-body">
-          <ul>
-            <li id="users_seller">
-              <a class="waves-effect" style="text-decoration: none;" href="#!">Add Users</a>
-            </li>
+        <li id="dash_users">
+            <div id="dash_users_header" class="collapsible-header waves-effect"><i class="small material-icons">people</i><b>Users</b></div>
+            <div id="dash_users_body" class="collapsible-body">
+                <ul>
+                    <li id="remove_user">
+                        <a class="waves-effect modal-trigger" href="#modal2" style="text-decoration: none;">
+                            <i class="small material-icons">remove</i>Remove User
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li id="dash_driver">
+            <div id="dash_driver_header" class="collapsible-header waves-effect"><i class="small material-icons">people</i><b>Drivers</b></div>
+            <div id="dash_driver_body" class="collapsible-body">
+                <ul>
+                    <li id="add_driver">
+                        <a class="waves-effect modal-trigger" href="#modal3" style="text-decoration: none;">
+                            <i class="small material-icons">person_add</i>Add Driver
+                        </a>
+                    </li>
+                    <li id="remove_driver">
+                        <a class="waves-effect modal-trigger" href="#modal4" style="text-decoration: none;">
+                            <i class="small material-icons">remove</i>Remove Driver
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+        <li id="dash_vehicle">
+            <div id="dash_vehicle_header" class="collapsible-header waves-effect"><i class="small material-icons">airport_shuttle</i><b>Vehicles</b></div>
+            <div id="dash_vehicle_body" class="collapsible-body">
+                <ul>
+                    <li id="add_vehicle">
+                        <a class="waves-effect modal-trigger" href="#modal5" style="text-decoration: none;">
+                            <i class="small material-icons">add</i>Add Vehicles
+                        </a>
+                    </li>
+                    <li id="remove_vehicle">
+                        <a class="waves-effect modal-trigger" href="#modal6" style="text-decoration: none;">
+                            <i class="small material-icons">remove</i>Remove Vehicles
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </li>
+    </ul> 
+</ul>
 
-            <li id="users_customer">
-              <a class="waves-effect" style="text-decoration: none;" href="#!">Remove Users</a>
-            </li>
-          </ul>
-        </div>
-      </li>
-
-      <li id="dash_products">
-        <div id="dash_products_header" class="collapsible-header waves-effect"><b>Drivers</b></div>
-        <div id="dash_products_body" class="collapsible-body">
-          <ul>
-            <li id="products_product">
-              <a class="waves-effect" style="text-decoration: none;" href="#!">Add Drivers</a>
-              <a class="waves-effect" style="text-decoration: none;" href="#!">Remove Drivers</a>
-            </li>
-          </ul>
-        </div>
-      </li>
-
-      <li id="dash_categories">
-        <div id="dash_categories_header" class="collapsible-header waves-effect"><b>Vehicles</b></div>
-        <div id="dash_categories_body" class="collapsible-body">
-          <ul>
-            <li id="categories_category">
-              <a class="waves-effect" style="text-decoration: none;" href="#!">Add Vehicles</a>
-            </li>
-
-            <li id="categories_sub_category">
-              <a class="waves-effect" style="text-decoration: none;" href="#!">Remove Vehicle</a>
-            </li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-  </ul>
-
-  <header>
+<header>
     <ul class="dropdown-content" id="user_dropdown">
-      <li><a class="indigo-text" href="#!">Profile</a></li>
-      <li><a class="indigo-text" href="#!">Logout</a></li>
+        <li><a class="green-text" href="index.jsp"> Logout</a></li>
     </ul>
 
-    <nav class="indigo" role="navigation">
-      <div class="nav-wrapper">
-        <a data-activates="slide-out" class="button-collapse show-on-" href="#!"><img style="margin-top: 17px; margin-left: 5px;" src="" /></a>
+    <nav class="green darken-2" role="navigation">
+        <div class="nav-wrapper">
+            <ul class="right hide-on-med-and-down">
 
-        <ul class="right hide-on-med-and-down">
-          <li>
-            <a class='right dropdown-button' href='' data-activates='user_dropdown'><i class=' material-icons'>account_circle</i></a>
-          </li>
-        </ul>
 
-        <a href="#" data-activates="slide-out" class="button-collapse"><i class="mdi-navigation-menu"></i></a>
-      </div>
+                <li><a class='right dropdown-button' href='' data-activates='user_dropdown'><jsp:getProperty name ="users" property="email" /><i class=' material-icons right'>account_circle</i></a></li>
+            </ul>
+        </div>
     </nav>
+</header>
 
-    <nav>
-      <div class="nav-wrapper indigo darken-2">
-        <a style="margin-left: 20px;" class="breadcrumb" href="#!">Admin</a>
-        <a class="breadcrumb" href="#!">Index</a>
-
-        <div style="margin-right: 20px;" id="timestamp" class="right"></div>
-      </div>
-    </nav>
-  </header>
-
-  <main>
+<main>
     <div class="row">
-      <div class="col s6">
-        <div style="padding: 35px;" align="center" class="card">
-          <div class="row">
-            <div class="left card-title">
-              <b>User Management</b>
-            </div>
-          </div>
-
-          <div class="row">
-            <a href="#!">
-              <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
-                <i class="indigo-text text-lighten-1 large material-icons">person</i>
-                <span class="indigo-text text-lighten-1"><h5>Seller</h5></span>
-              </div>
-            </a>
-            <div class="col s1">&nbsp;</div>
-            <div class="col s1">&nbsp;</div>
-
-            <a href="#!">
-              <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
-                <i class="indigo-text text-lighten-1 large material-icons">people</i>
-                <span class="indigo-text text-lighten-1"><h5>Customer</h5></span>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col s6">
-        <div style="padding: 35px;" align="center" class="card">
-          <div class="row">
-            <div class="left card-title">
-              <b>Product Management</b>
-            </div>
-          </div>
-          <div class="row">
-            <a href="#!">
-              <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
-                <i class="indigo-text text-lighten-1 large material-icons">store</i>
-                <span class="indigo-text text-lighten-1"><h5>Product</h5></span>
-              </div>
-            </a>
-
-            <div class="col s1">&nbsp;</div>
-            <div class="col s1">&nbsp;</div>
-
-            <a href="#!">
-              <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
-                <i class="indigo-text text-lighten-1 large material-icons">assignment</i>
-                <span class="indigo-text text-lighten-1"><h5>Orders</h5></span>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col s6">
-        <div style="padding: 35px;" align="center" class="card">
-          <div class="row">
-            <div class="left card-title">
-              <b>Brand Management</b>
-            </div>
-          </div>
-
-          <div class="row">
-            <a href="#!">
-              <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
-                <i class="indigo-text text-lighten-1 large material-icons">local_offer</i>
-                <span class="indigo-text text-lighten-1"><h5>Brand</h5></span>
-              </div>
-            </a>
-
-            <div class="col s1">&nbsp;</div>
-            <div class="col s1">&nbsp;</div>
-
-            <a href="#!">
-              <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
-                <i class="indigo-text text-lighten-1 large material-icons">loyalty</i>
-                <span class="indigo-text text-lighten-1"><h5>Sub Brand</h5></span>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="col s6">
-        <div style="padding: 35px;" align="center" class="card">
-          <div class="row">
-            <div class="left card-title">
-              <b>Category Management</b>
-            </div>
-          </div>
-          <div class="row">
-            <a href="#!">
-              <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
-                <i class="indigo-text text-lighten-1 large material-icons">view_list</i>
-                <span class="indigo-text text-lighten-1"><h5>Category</h5></span>
-              </div>
-            </a>
-            <div class="col s1">&nbsp;</div>
-            <div class="col s1">&nbsp;</div>
-
-            <a href="#!">
-              <div style="padding: 30px;" class="grey lighten-3 col s5 waves-effect">
-                <i class="indigo-text text-lighten-1 large material-icons">view_list</i>
-                <span class="truncate indigo-text text-lighten-1"><h5>Sub Category</h5></span>
-              </div>
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="fixed-action-btn click-to-toggle" style="bottom: 45px; right: 24px;">
-      <a class="btn-floating btn-large pink waves-effect waves-light">
-        <i class="large material-icons">add</i>
-      </a>
-
-      <ul>
-        <li>
-          <a class="btn-floating red"><i class="material-icons">note_add</i></a>
-          <a href="" class="btn-floating fab-tip">Add a note</a>
-        </li>
-
-        <li>
-          <a class="btn-floating yellow darken-1"><i class="material-icons">add_a_photo</i></a>
-          <a href="" class="btn-floating fab-tip">Add a photo</a>
-        </li>
-
-        <li>
-          <a class="btn-floating green"><i class="material-icons">alarm_add</i></a>
-          <a href="" class="btn-floating fab-tip">Add an alarm</a>
-        </li>
-
-        <li>
-          <a class="btn-floating blue"><i class="material-icons">vpn_key</i></a>
-          <a href="" class="btn-floating fab-tip">Add a master password</a>
-        </li>
-      </ul>
-    </div>
-  </main>
-
-  <footer class="indigo page-footer">
-    <div class="container">
-      <div class="row">
         <div class="col s12">
-          <h5 class="white-text">Icon Credits</h5>
-          <ul id='credits'>
-            <li>
-              Gif Logo made using <a href="" title="Form Type Maker">Form Type Maker</a> from <a href="" title="romannurik">romannurik</a>
-            </li>
-            <li>
-              Icons made by <a href="">Google</a>, available under <a href="" target="_blank">Apache License Version 2.0</a>
-            </li>
-          </ul>
+            <div style="padding: 35px;" align="center" class="card">
+                <div class="row">
+                    <div class="left card-title">
+                        <b>System Information</b>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <a href="#modal4" class="modal-trigger">
+                        <div style="padding: 30px;" class="grey lighten-3 col s3 waves-effect">
+                            <i class="green-text text-lighten-1 large material-icons">people</i>
+                            <sql:setDataSource var = "drivers" driver = "org.postgresql.Driver"
+                                               url = "jdbc:postgresql://localhost:5432/Transport"
+                                               user = "postgres"  password = "1234"/>
+                            <sql:query  dataSource = "${drivers}" var = "dresult">
+                                SELECT * from driver;
+                            </sql:query>
+                            <span class="green-text text-lighten-1"><h5>Total Available Drivers: &nbsp;${dresult.rowCount}</h5></span>
+                        </div>
+                    </a>
+
+                    <div class="col s1">&nbsp;</div>
+
+                    <a href="#modal6" class="modal-trigger">
+                        <div style="padding: 30px;" class="grey lighten-3 col s3 waves-effect">
+                            <i class="green-text text-lighten-1 large material-icons">airport_shuttle</i>
+                            <sql:setDataSource var = "vehicle" driver = "org.postgresql.Driver"
+                                               url = "jdbc:postgresql://localhost:5432/Transport"
+                                               user = "postgres"  password = "1234"/>
+                            <sql:query  dataSource = "${vehicle}" var = "vresult">
+                                SELECT * from vehicle;
+                            </sql:query>
+                            <span class="green-text text-lighten-1"><h5>Total Available Vehicles: &nbsp;${vresult.rowCount}</h5></span>
+                        </div>
+                    </a>
+
+                    <div class="col s1">&nbsp;</div>
+
+                    <a href="#modal2" class="modal-trigger">
+                        <div style="padding: 30px;" class="grey lighten-3 col s3 waves-effect">
+                            <i class="green-text text-lighten-1 large material-icons">people</i>
+                            <sql:setDataSource var = "snapshot" driver = "org.postgresql.Driver"
+                                               url = "jdbc:postgresql://localhost:5432/Transport"
+                                               user = "postgres"  password = "1234"/>
+                            <sql:query  dataSource = "${snapshot}" var = "result">
+                                SELECT * from users;
+                            </sql:query>
+
+                            <span class="green-text text-lighten-1"><h5>Total Registered Users: &nbsp;${result.rowCount}</h5></span>
+                        </div>
+                    </a>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
-    <div class="footer-copyright">
-      <div class="container">
-         <span>Made By <a style='font-weight: bold;' href="" target="_blank">Tirth Patel</a></span>
-      </div>
+
+    <div id="modal2" class="modal modal-fixed-footer" style="position: absolute; left: 200px; top: 100px; width: 70%">
+        <div class="modal-content">
+            <h4>Users Available In The System</h4>
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Contact</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <c:forEach var = "row" items = "${result.rows}">
+                        <tr>
+                            <td><c:out value = "${row.user_name}"/></td>
+                            <td><c:out value = "${row.email}"/></td>
+                            <td><c:out value = "${row.contact}"/></td>
+                    <script>
+                        function ConfirmSubmitr() {
+                            var rem = confirm('Are You Sure You Want To Remove?');
+                            if (rem)
+                                return true;
+                            else
+                                return false;
+                        }
+                    </script>
+                    <td><a id="del" href="remover.jsp?id=${row.user_id}" class="waves-effect waves-green btn-flat green" onclick='return ConfirmSubmitr();'>delete</a></td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">close</a>
+        </div>
     </div>
-  </footer>
-    </body>
-</html>
+    <div id="modal3" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4>Fill In This Form To Add A New Driver</h4>
+            <div class="row">
+                <form class="col s12" action="addDrivers.jsp" method="post" name="addDrivers" id="addDrivers">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="driver_name" name ="driver_name"type="text" class="validate">
+                            <label for='driver_name'>Driver Name</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="email" type="text" name ="email"class="validate">
+                            <label for='email'>Email</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input id="contact" type="text" name = "contact"class="validate">
+                            <label for='contact'>Contact</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type='submit' form='addDrivers' class="modal-action waves-effect waves-green btn-flat green">Add Driver</button>
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">close</a>
+        </div>
+    </div>
+    <div id="modal4" class="modal modal-fixed-footer" style="position: absolute; left: 200px; top: 100px; width: 70%">
+        <div class="modal-content">
+            <h4>Drivers Available In The System</h4>
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th>Driver Name</th>
+                        <th>Email</th>
+                        <th>Contact</th>
+                        <th>Availability</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <c:forEach var = "row" items = "${dresult.rows}">
+                        <tr>
+                            <td><c:out value = "${row.driver_name}"/></td>
+                            <td><c:out value = "${row.email}"/></td>
+                            <td><c:out value = "${row.contact}"/></td>
+                            <td><c:out value = "${row.availability}"/></td>
+                            <td><button>Change Availability</button></td>
+                            <script>
+                                function ConfirmSubmitd() {
+                                    var rem = confirm('Are You Sure You Want To Remove?');
+                                    if (rem)
+                                        return true;
+                                    else
+                                        return false;
+                                }
+                            </script>
+                            <td><a id="del" href="remover.jsp?did=${row.driver_id}" class="waves-effect waves-green btn-flat green" onclick='return ConfirmSubmitd();'>delete</a></td>
+                        </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">close</a>
+        </div>
+    </div>
+    <div id="modal5" class="modal modal-fixed-footer">
+        <div class="modal-content">
+            <h4>Fill In This Form To Add A New Vehicle</h4>
+            <div class="row">
+                <form class="col s12" name="addVehicle" id="addVehicle" method="post" action="addVehicles.jsp">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <select name="vehicle_type">
+                                <option value="" disabled selected>Choose Vehicle Type</option>
+                                <option value="Bus">Bus</option>
+                                <option value="Mini-Bus">Mini-Bus</option>
+                                <option value="Van">Van</option>
+                                <option value="Double-Cabin">Double-Cabin</option>
+                            </select>
+                            <label for='vehicle_type'>Vehicle Type</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input name="number_plate" id="number_plate" type="text" class="validate">
+                            <label for='number_plate'>Number Plate</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input name="capacity" id="capacity" type="number" class="validate">
+                            <label for='capacity'>Capacity</label>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <button type='submit' form='addVehicle' class="modal-action modal-close waves-effect waves-green btn-flat green">Add Vehicle</button>
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">close</a>
+        </div>
+    </div>
+    <div id="modal6" class="modal modal-fixed-footer" style="position: absolute; left: 200px; top: 100px; width: 70%">
+        <div class="modal-content">
+            <h4>Vehicles Available In The System</h4>
+            <table class="striped">
+                <thead>
+                    <tr>
+                        <th>Vehicle Type</th>
+                        <th>Number Plate</th>
+                        <th>Capacity</th>
+                        <th>Availability</th>
+                        <th>Status</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <c:forEach var = "row" items = "${vresult.rows}">
+                        <tr>
+                            <td><c:out value = "${row.vehicle_type}"/></td>
+                            <td><c:out value = "${row.number_plate}"/></td>
+                            <td><c:out value = "${row.capacity}"/></td>
+                            <td><c:out value = "${row.availability}"/></td>
+                            <td><button>Change Availability</button></td>
+                            <script>
+                                function ConfirmSubmitv() {
+                                    var rem = confirm('Are You Sure You Want To Remove?');
+                                    if (rem)
+                                        return true;
+                                    else
+                                        return false;
+                                }
+                            </script>
+                            <td><a id="del" href="remover.jsp?vid=${row.vehicle_id}" class="waves-effect waves-green btn-flat green" onclick='return ConfirmSubmitv();'>delete</a></td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class=" modal-action modal-close waves-effect waves-green btn-flat green">close</a>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.modal-trigger').leanModal();
+            $('select').material_select();
+        });
+    </script>
+</main>
+
+<jsp:include page="./includes/footer.jsp" />

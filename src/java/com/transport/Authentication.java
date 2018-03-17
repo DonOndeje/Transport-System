@@ -14,10 +14,10 @@ import javax.crypto.spec.PBEKeySpec;
 
 /**
  *
- * @author JQHN
+ * @author @DON
  */
 public class Authentication {
-
+//Authorisation filter that intersepts the request in order to authorise login 
     public String hash(String password) throws NoSuchAlgorithmException, InvalidKeySpecException {
 
         String hashedPass = generateStorngPasswordHash(password);
